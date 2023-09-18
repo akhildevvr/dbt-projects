@@ -1,0 +1,11 @@
+{% macro project() %}
+WITH JOINED_DATA as (
+    SELECT 
+    UNIQUEID AS PROJECT_ID
+    FROM 
+    EIO_PUBLISH.TENROX_PRIVATE.TPROJECT
+)
+SELECT 
+*
+FROM JOINED_DATA
+{% endmacro %}

@@ -1,0 +1,11 @@
+
+
+
+
+SELECT COUNT(*) as cnt
+FROM EIO_INGEST.TENROX_TRANSFORM.customer_segmentation_predictions
+WHERE NOT to_char(AOV_SNAPSHOT_DATE , 'YYYY-MM-DD') <> '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+having cnt > 0
+
+
+

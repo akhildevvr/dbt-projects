@@ -1,0 +1,36 @@
+
+  create or replace   view EIO_INGEST.ENGAGEMENT_TRANSFORM.employee_details
+  
+   as (
+    /*
+
+    We can also configure models directly within SQL files?
+    This will override configurations stated in dbt_project.yml
+
+
+*/
+
+
+SELECT 
+_LINE,
+FIRST_NAME,
+LAST_NAME,
+CASE 
+    WHEN TRY_TO_DATE(TARGET_PROJECT_TRAVEL) IS NOT NULL 
+    THEN To_char(TO_DATE(TARGET_PROJECT_TRAVEL), 'YYYY-MM-DD')  
+    ELSE TARGET_PROJECT_TRAVEL
+    END AS TARGET_PROJECT_TRAVEL,
+TARGET_PRODUCTIVE,
+TARGET_ADMIN,
+GEO,
+TARGET_BD,
+TARGET_BILLABLE,
+TARGET_TRAINING,
+EMPLOYEE_ID,
+TARGET_PTO,
+_FIVETRAN_SYNCED,
+TARGET_STRATEGIC	
+ FROM 
+"EIO_INGEST"."ENGAGEMENT_SHAREPOINT"."EMPLOYEE_DETAILS_SHEET_1"
+  );
+

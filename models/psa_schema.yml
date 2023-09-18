@@ -1,0 +1,2404 @@
+version: 2
+
+sources:
+  - name: TENROX_PRIVATE # Schema
+    database: EIO_PUBLISH
+    tables:
+      - name: CUST_ADSK_MARGINVARIANCE  # Table name
+      - name: CUST_ADSK_SERVICESIMPACT_PROJECTDETAILS  # Table name
+      - name: CUST_ADSK_UTILIZATION_HOURS
+      - name: CUST_ADSK_UTILIZATION_RESOURCES
+
+  - name: SFDC_SHARED # Schema
+    database: BSD_PUBLISH
+    tables:
+      - name: END_CUSTOMER_CONTRACTS__C  # Table name
+      - name: CONTRACT_EXHIBIT__C  # Table name
+      - name: OPPORTUNITY  # Table name
+      - name: USER  # Table name
+      - name: ACCOUNT
+      - name: SERVICE_ENGAGEMENT__C
+      - name: SERVICES_PURCHASE_DETAIL__C
+
+  - name: ACCOUNT_OPTIMIZED  # Schema
+    database: ADP_PUBLISH
+    tables:
+      - name: TRANSACTIONAL_CSN_MAPPING_OPTIMIZED  # Table name
+      - name: ACCOUNT_EDP_OPTIMIZED
+ 
+  - name: ENGAGEMENT_SHAREPOINT
+    database: EIO_INGEST
+    tables:
+      - name: PACFORECAST_SUPPLEMENTARY
+      - name: UTILIZATION_GEO_TARGETS_TARGETS
+      - name: GENERIC_RESOURCES_ID_SHEET_1
+      - name: CAPACITY_DEMAND_FC_PARAMETERS
+      - name: CAPACITY_EXTERNAL_SHEET_1
+
+  - name: CUSTOMER_SUCCESS_OPTIMIZED  # Schema
+    database: ADP_PUBLISH
+    tables:
+      - name: DATE_INFO  # Table name
+      - name: AS_IS_EXHIBITS_OPTIMIZED
+      - name: AS_IS_SERVICE_PURCHASE_DETAILS_OPTIMIZED
+      - name: AS_IS_SERVICE_ENGAGEMENTS_OPTIMIZED
+      - name: AS_IS_TENROX_PARENT_PROJECTS_OPTIMIZED
+      - name: AS_IS_TENROX_CHILD_PROJECTS_OPTIMIZED
+
+  - name: tenrox_transform  # Schema
+    database: eio_ingest
+    tables:
+      - name: adsk_cm_project_details  # Table name
+      - name: tprojectcustfld_view
+      - name: adsk_cm_project_budget_local_cur
+      - name: adsk_cm_labor_rev_local_cur_v02
+      - name: adsk_cm_forecast_chrg_rev_local_cur_v02
+      - name: adsk_cm_act_charge_costs_local_cur_v02
+      - name: adsk_cm_forecast_chrg_cost_local_cur
+      - name: adsk_cm_labor_hrs_v02
+      - name: adsk_cm_rec_chrg_rev_local_cur_v02
+      - name: adsk_cm_monthly_chrg_rev_local_cur
+      - name: adsk_cm_rec_rev_v02
+      - name: adsk_month_q_ranges_v02
+      - name: fcurrqexchrate
+      - name: adsk_cm_labor_hrs_v02_stacked
+      - name: adsk_cm_monthly_deferred_local_cur_rev_stacked
+      - name: adsk_cm_labor_rev_local_cur_v02_stacked
+      - name: adsk_cm_forecast_chrg_rev_local_cur_v02_stacked
+      - name: adsk_cm_rec_chrg_rev_local_cur_v02_stacked
+      - name: adsk_cm_monthly_chrg_rev_local_cur_stacked
+      - name: adsk_cm_rec_rev_v02_stacked
+
+
+
+  
+
+  - name: TENROX_PRIVATE  # Schema
+    database: EIO_PUBLISH
+    tables:
+      - name: TPROJECT  # Table name
+      - name: TMAPDATA
+      - name: TWORKFLOWMAP
+      - name: TACCCONSET
+      - name: TPPMPROJWFFLAGS
+      - name: TWFINSTANCEOBJECT
+      - name: TWFINSTANCEACTIVITY
+      - name: TWFWORKFLOWACTIVITYDESC
+      - name: TPROJECTCUSTFLD
+      - name: TCUSTLST
+      - name: TCUSTLSTDESC
+      - name: TRPLNBOOKING
+      - name: TRPLNBOOKINGATTRIBUTES
+      - name: TRPLNBOOKINGDETAILS
+      - name: TTASK
+      - name: TUSER
+      - name: TUSERPERSONAL
+      - name: TUSERPLANNINGROLE
+      - name: TPLANNINGROLE
+      - name: TTITLE
+      - name: TBUDGETDETAILENTRY
+      - name: TBUDGETDETAILLIST
+      - name: TBUDGETDETAIL
+      - name: TRPLNUSERAVAILABILITY
+      - name: TRPLNCALENDARDATES
+      - name: TTIMEENTRY
+      - name: TTIMEENTRYRATE
+      - name: TWFWORKFLOWACTIVITY
+      - name: TWFWORKFLOWACTIVITYFLAG
+      - name: TPROCESS_STATUS
+      - name: TROLE
+      - name: TSTATUS
+      - name: TWFWORKFLOWVERSION
+      - name: TSITE
+      - name: TCOMPONENT
+      - name: TGROUP
+      - name: TPORTFOLIO
+      - name: TCLIENT
+      - name: TCUSTFLD
+      - name: TOBJCUSTFLD
+      - name: TOBJCUSTFLDVAL
+
+models:
+  - name: project_details_enhanced_transform   
+    description: "Project Details Enhanced"
+    columns:
+      - name: PROJECT_ID
+        description: "Unique Project Id"
+        tests:                          
+          - not_null:
+              name: gcd_project_details_enhanced_null_projectid
+          - unique:
+              name: gcd_project_details_enhanced_unique_projectid
+
+
+  - name: project_list_transform
+    description: "Project List"
+    columns:
+      - name: PROJECT_UNIQUE_ID
+        description: "Unique Project Id"
+        tests:                          
+          - not_null:
+              name: gcd_project_list_null_projectid
+          - unique:
+              name: gcd_project_list_unique_projectid
+
+  - name: user_list_transform
+    description: "Project List"
+    columns:
+      - name: USER_UNIQUE_ID
+        description: "Unique User Id"
+        tests:                          
+          - not_null:
+              name: gcd_user_list_null_userid
+          - unique:
+              name: gcd_user_list_unique_userid
+
+  - name: asis_ma_hours_breakdown_enriched_transform
+    description: "Project List"
+    columns:
+      - name: PROJECT_CODE
+        description: "Unique Project Code"
+        tests:                          
+          - not_null:
+              name: gcd_asis_ma_hours_breakdown_null_projectcode
+          - unique:
+              name: gcd_asis_ma_hours_breakdown_unique_projectcode
+
+  - name: project_details_enriched_transform
+    description: "Project List"
+    columns:
+      - name: PROJECT_ID
+        description: "Unique Project Id"
+        tests:                          
+          - not_null:
+              name: gcd_project_details_enriched_null_projectid
+          - unique:
+              name: gcd_project_details_enriched_unique_projectid
+
+  - name: project_budget_summary_transform
+    description: "Project List"
+    columns:
+      - name: PROJECT_UNIQUE_ID
+        description: "Unique Project Id"
+        tests:                          
+          - not_null:
+              name: gcd_project_budget_summary_null_projectid
+          - unique:
+              name: gcd_project_budget_summary_unique_projectid
+
+  
+  - name: utilization_resources_enriched_transform
+    description: "Project List"
+    columns:
+      - name: USER_ID
+        description: "Unique user Id"
+        tests:                          
+          - not_null:
+              name: gcd_putilization_resources_enriched_null_userid
+          - unique:
+              name: gcd_utilization_resources_enriched_unique_userid
+
+  - name: margin_variance_transform
+    description: "Project List"
+    columns:
+      - name: PROJECT_ID
+        description: "Unique Project Id"
+        tests:                          
+          - not_null:
+              name: gcd_margin_variance_null_projectid
+          - unique:
+              name: gcd_margin_variance_unique_projectid
+
+  - name: as_is_exhibits_enriched_transform
+    description: "Exhibit ID"
+    columns:
+      - name: EXHIBIT_ID
+        description: "Unique Exhibit Id"
+        tests:                          
+          - not_null:
+              name: gcd_as_is_exhibits_enriched_null_exhibitid
+          - unique:
+              name: gcd_as_is_exhibits_enriched_unique_exhibitid
+
+
+  - name: as_is_service_purchase_enriched_transform
+    description: "Service Purchase ID"
+    columns:
+      - name: SERVICE_PURCHASE_ID
+        description: "Unique Service Purchase Id"
+        tests:                          
+          - not_null:
+              name: gcd_as_is_service_purchase_enriched_null_servicepurchaseid
+          - unique:
+              name: gcd_as_is_service_purchase_enriched_unique_servicepurchaseid
+
+
+  - name: as_is_service_engagements_transform
+    description: "Service Engagment ID"
+    columns:
+      - name: SERVICE_ENGAGEMENT_ID
+        description: "Unique Service Engagment Id"
+        tests:                          
+          - not_null:
+              name: gcd_as_is_service_engagements_null_serviceengagementid
+          - unique:
+              name: gcd_as_is_service_engagements_unique_serviceengagementid
+
+  - name: as_is_tenrox_child_projects_transform
+    description: "Project Code"
+    columns:
+      - name: PROJECT_CODE
+        description: "Project Code"
+        tests:                          
+          - not_null:
+              name: gcd_as_is_tenrox_child_projects_null_projectcode
+          - unique:
+              name: gcd_as_is_tenrox_child_projects_unique_projectcode
+
+  - name: as_is_tenrox_parent_projects_enriched_transform
+    description: "Project Code"
+    columns:
+      - name: PROJECT_CODE
+        description: "Project Code"
+        tests:                          
+          - not_null:
+              name: gcd_as_is_tenrox_parent_projects_enriched_null_projectcode
+          - unique:
+              name: gcd_as_is_tenrox_parent_projects_enriched_unique_projectcode
+      - name: PROJECT_NAME
+        description: "Project Name"
+        tests:
+          - not_null:
+              name: gcd_as_is_tenrox_parent_projects_enriched_null_projectname
+
+
+  - name: gcd_as_is_exhibits_shared
+    columns:
+      - name: agreement_status
+        description: the status of the eca record.
+
+      - name: agreement_type
+        description: the agreement type of the eca record
+
+      - name: as_flag
+        description: flag to show whether exhibit type is consulting or not
+
+      - name: account_id
+        description: the salesforce *id* of the account to which the eca is associated.
+
+      - name: account_industry
+        description: the industry associated to the accoun
+
+      - name: account_name
+        description: the *name* of the account to which the eca is associated.
+
+      - name: agreement_id
+        description: the salesforce id of the eca record
+
+      - name: agreement_name
+        description: the name of the eca
+
+      - name: exhibit_start_date
+        description: the date from when this exhibit went live.
+
+      - name: exhibit_status
+        description: the status of the exhibit .
+
+      - name: exhibit_type
+        description: the type of exhibit record
+
+      - name: exhibit_type_as_is
+        description: flag to show whether an exhibit is as or is
+
+      - name: exhibit_url
+        description: concatenating the salesforce url that takes you to salesforce object
+
+      - name: exhibit_end_date
+        description: the date for when this exhibit terminated.
+
+      - name: exhibit_id
+        description: the id of the exhibit record
+
+      - name: exhibit_name
+        description: the name of the exhibit
+
+
+  - name: gcd_as_is_service_engagements_shared
+    columns:
+      - name: high_level_business_scope
+        description: hashed value
+
+      - name: hours
+        description: the hours associated the particular se
+
+      - name: name
+        description: the se name
+
+      - name: opportunity
+        description: opportunity id
+
+      - name: ownerid
+        description: owner id from sfdc
+
+      - name: primary_product
+        description: the product id
+
+      - name: agreement_status
+        description: the status of the eca record.
+
+      - name: agreement_type
+        description: the agreement type of the eca record
+
+      - name: close_date
+        description: close date of the se
+
+      - name: account_id
+        description: the salesforce *id* of the account to which the eca is associated.
+
+      - name: account_name
+        description: the *name* of the account to which the eca is associated.
+
+      - name: agreement_id
+        description: the salesforce id of the eca record
+
+      - name: agreement_name
+        description: the name of the eca
+
+      - name: primary_product_name
+        description: the products associated to the se
+
+      - name: production_assurance_credits_pac
+        description: pac associated to the se
+
+      - name: recordtypeid
+        description: record type id
+
+      - name: related_engagement
+        description: related engagement id
+
+      - name: service_catalog_id
+        description: the catalog id
+
+      - name: service_engagement_id
+        description: the service engagement unique id from sfdc
+
+      - name: service_engagement_name
+        description: full name of the se
+
+      - name: service_line
+        description: the line of the service of the account
+
+      - name: contract_type
+        description: type of contract - eba,change order etc
+
+      - name: created_date
+        description: the date when the se was created
+
+      - name: csp_required
+        description: csp required boolean value
+
+      - name: currencyisocode
+        description: currency code
+
+      - name: delivery_geo
+        description: geo associated to the delivery of the se
+
+      - name: exhibit_start_date
+        description: the date from when this exhibit went live.
+
+      - name: exhibit_status
+        description: the status of the exhibit.
+
+      - name: exhibit_type
+        description: the type of exhibit record
+
+      - name: delivery_language
+        description: language of delivery associated to se
+
+      - name: description
+        description: the description of the se
+
+      - name: exhibit_end_date
+        description: the date from when this exhibit will end.
+
+      - name: exhibit_id
+        description: the id of the exhibit record
+
+      - name: exhibit_name
+        description: the name of the exhibit
+
+      - name: service_type
+        description: type of service offered - transform ,optimise etc
+
+      - name: se_account_csn
+        description: the account csn associated to the se
+
+      - name: se_account_id
+        description: the id of the account associated to the se
+
+      - name: se_account_name
+        description: the name of the account associated to the se
+
+      - name: status_name
+        description: the status associated to the se - delivery,closed etc
+
+      - name: sub_status_name
+        description: sub status of the se
+
+      - name: target_end_date
+        description: the target end date od the se
+
+      - name: target_start_date
+        description: the start date of the se
+
+      - name: tenrox_tracking_number
+        description: tenrox tracking number - used to connect to projects from gcd_project_details
+
+      - name: total_amount
+        description: total amount associated to se
+
+      - name: work_at_risk
+        description: work at risk or not - boolean value
+
+
+  - name: project_forecast_transform
+    description: "Project Forecast Report"
+    columns: 
+      - name: billable_hours_currentqtr
+        description: billable_hours_currentqtr (data type number)
+
+      - name: billable_hours_plus1qtr
+        description: billable_hours_plus1qtr (data type number)
+
+      - name: billable_hours_plus2qtr
+        description: billable_hours_plus2qtr (data type number)
+
+      - name: billable_hours_plus3qtr
+        description: billable_hours_plus3qtr (data type number)
+
+      - name: billable_hours_plus4qtr
+        description: billable_hours_plus4qtr (data type number)
+
+      - name: billable_hours_plus5qtr
+        description: billable_hours_plus5qtr (data type number)
+
+      - name: bud_revenue
+        description: bud_revenue (data type number)
+
+      - name: client_currency
+        description: client_currency (data type text)
+
+      - name: client_name
+        description: client_name (data type text)
+
+      - name: client_rate
+        description: client_rate (data type number)
+
+      - name: hrsfcst_billable_currentqtrm2_org
+        description: hrsfcst_billable_currentqtrm2_org (data type number)
+
+      - name: hrsfcst_billable_currentqtrm3
+        description: hrsfcst_billable_currentqtrm3 (data type number)
+
+      - name: hrsfcst_billable_currentqtrm3_org
+        description: hrsfcst_billable_currentqtrm3_org (data type number)
+
+      - name: hrsfcst_billable_future
+        description: hrsfcst_billable_future (data type number)
+
+      - name: hrsfcst_billable_plus1qtr
+        description: hrsfcst_billable_plus1qtr (data type number)
+
+      - name: hrsfcst_billable_plus1qtr_org
+        description: hrsfcst_billable_plus1qtr_org (data type number)
+
+      - name: hrsfcst_billable_plus2qtr
+        description: hrsfcst_billable_plus2qtr (data type number)
+
+      - name: hrsfcst_billable_plus2qtr_org
+        description: hrsfcst_billable_plus2qtr_org (data type number)
+
+      - name: hrsfcst_billable_plus3qtr
+        description: hrsfcst_billable_plus3qtr (data type number)
+
+      - name: hrsfcst_billable_plus3qtr_org
+        description: hrsfcst_billable_plus3qtr_org (data type number)
+
+      - name: total_revenue_additional2qtr
+        description: total_revenue_additional2qtr (data type number)
+
+      - name: total_revenue_additionalqtr
+        description: total_revenue_additionalqtr (data type number)
+
+      - name: total_revenue_currentqtr
+        description: total_revenue_currentqtr (data type number)
+
+      - name: total_revenue_futureqtrs
+        description: total_revenue_futureqtrs (data type number)
+
+      - name: total_revenue_plus1qtr
+        description: total_revenue_plus1qtr (data type number)
+
+      - name: total_revenue_plus2qtr
+        description: total_revenue_plus2qtr (data type number)
+
+      - name: total_revenue_plus3qtr
+        description: total_revenue_plus3qtr (data type number)
+
+      - name: total_revenue_plus4qtr
+        description: total_revenue_plus4qtr (data type number)
+
+      - name: total_revenue_plus5qtr
+        description: total_revenue_plus5qtr (data type number)
+
+      - name: total_revenue_prevqtr
+        description: total_revenue_prevqtr (data type number)
+
+      - name: hrsfcst_billable_plus4qtr
+        description: hrsfcst_billable_plus4qtr (data type number)
+
+      - name: hrsfcst_billable_plus4qtr_org
+        description: hrsfcst_billable_plus4qtr_org (data type number)
+
+      - name: hrsfcst_billable_plus5qtr
+        description: hrsfcst_billable_plus5qtr (data type number)
+
+      - name: hrsfcst_billable_plus5qtr_org
+        description: hrsfcst_billable_plus5qtr_org (data type number)
+
+      - name: hrsfcst_billable_remaininginqtr
+        description: hrsfcst_billable_remaininginqtr (data type number)
+
+      - name: hrsfcst_billable_remaininginqtr_soft
+        description: hrsfcst_billable_remaininginqtr_soft (data type number)
+
+      - name: hrs_billable_eac
+        description: hrs_billable_eac (data type number)
+
+      - name: hrs_billable_eac_org
+        description: hrs_billable_eac_org (data type number)
+
+      - name: parent_child_key
+        description: parent_child_key (data type text)
+
+      - name: parent_id
+        description: parent_id (data type number)
+
+      - name: percent_complete_prevqtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocprevqtr
+
+      - name: percent_complete_currentqtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocpcurrentqtr
+
+      - name: percent_complete_plus1qtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocplus1qtr
+
+      - name: percent_complete_plus2qtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocplus2qtr
+
+      - name: percent_complete_plus3qtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocplus3qtr
+
+      - name: percent_complete_plus4qtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocplus4qtr
+
+      - name: percent_complete_plus5qtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocpplus5qtr
+
+      - name: percent_complete_additionalqtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocadditionalqtr
+
+      - name: percent_complete_additional2qtr
+        tests:
+          - not_greater_than_one:
+              name: tnrxsp_project_forecast_greaterthanone_pocadditional2qtr
+
+      - name: hrsact_pastqtrs
+        description: hrsact_pastqtrs (data type number)
+
+      - name: hrsact_pastqtrs_org
+        description: hrsact_pastqtrs_org (data type number)
+
+      - name: hrsact_past_org
+        description: hrsact_past_org (data type number)
+
+      - name: hrsfcst_billable_additionalqtrs
+        description: hrsfcst_billable_additionalqtrs (data type number)
+
+      - name: hrsfcst_billable_additionalqtrs2
+        description: hrsfcst_billable_additionalqtrs2 (data type number)
+
+      - name: hrsfcst_billable_additionalqtrs2_org
+        description: hrsfcst_billable_additionalqtrs2_org (data type number)
+
+      - name: hrsfcst_billable_additionalqtrs_org
+        description: hrsfcst_billable_additionalqtrs_org (data type number)
+
+      - name: hrsfcst_billable_currentqtrm1
+        description: hrsfcst_billable_currentqtrm1 (data type number)
+
+      - name: hrsfcst_billable_currentqtrm1_org
+        description: hrsfcst_billable_currentqtrm1_org (data type number)
+
+      - name: hrsfcst_billable_currentqtrm2
+        description: hrsfcst_billable_currentqtrm2 (data type number)
+
+      - name: revlabor_remaining_in_qtr_hard
+        description: revlabor_remaining_in_qtr_hard (data type number)
+
+      - name: rev_deferred
+        description: rev_deferred (data type number)
+
+      - name: soft_booked_hrs_additionalqtrs
+        description: soft_booked_hrs_additionalqtrs (data type number)
+
+      - name: soft_booked_hrs_additionalqtrs2
+        description: soft_booked_hrs_additionalqtrs2 (data type number)
+
+      - name: soft_booked_hrs_currentqtr
+        description: soft_booked_hrs_currentqtr (data type number)
+
+      - name: soft_booked_hrs_plus1qtr
+        description: soft_booked_hrs_plus1qtr (data type number)
+
+      - name: soft_booked_hrs_plus2qtr
+        description: soft_booked_hrs_plus2qtr (data type number)
+
+      - name: soft_booked_hrs_plus3qtr
+        description: soft_booked_hrs_plus3qtr (data type number)
+
+      - name: soft_booked_hrs_plus4qtr
+        description: soft_booked_hrs_plus4qtr (data type number)
+
+      - name: soft_booked_hrs_plus5qtr
+        description: soft_booked_hrs_plus5qtr (data type number)
+
+      - name: estimated_expenses_plus4qtr
+        description: estimated_expenses_plus4qtr (data type number)
+
+      - name: estimated_expenses_plus5qtr
+        description: estimated_expenses_plus5qtr (data type number)
+
+      - name: fcstchrgrev_allbillable_additionalqtrs
+        description: fcstchrgrev_allbillable_additionalqtrs (data type number)
+
+      - name: fcstchrgrev_allbillable_additionalqtrs2
+        description: fcstchrgrev_allbillable_additionalqtrs2 (data type number)
+
+      - name: fcstchrgrev_allbillable_futureqtrs
+        description: fcstchrgrev_allbillable_futureqtrs (data type number)
+
+      - name: fcstchrgrev_allbillable_plus1qtr
+        description: fcstchrgrev_allbillable_plus1qtr (data type number)
+
+      - name: fcstchrgrev_allbillable_plus2qtr
+        description: fcstchrgrev_allbillable_plus2qtr (data type number)
+
+      - name: fcstchrgrev_allbillable_plus3qtr
+        description: fcstchrgrev_allbillable_plus3qtr (data type number)
+
+      - name: fcstchrgrev_allbillable_plus4qtr
+        description: fcstchrgrev_allbillable_plus4qtr (data type number)
+
+      - name: portfolio_name
+        description: portfolio_name (data type text)
+
+      - name: project_code
+        tests:
+          - unique:
+              name: tnrxsp_project_forecast_unique_projectcode
+          - not_null:
+              name: tnrxsp_project_forecast_null_projectcode    
+
+      - name: project_end_date
+        description: project_end_date (data type date)
+
+      - name: project_id
+        tests:
+          - unique:
+              name: tnrxsp_project_forecast_unique_projectid
+          - not_null:
+              name: tnrxsp_project_forecast_null_projectid
+
+      - name: project_manager_name
+        description: project_manager_name (data type text)
+
+      - name: project_name
+        description: project_name (data type text)
+
+      - name: project_state
+        description: project_state (data type text)
+
+      - name: recrev_completedinqtr
+        description: recrev_completedinqtr (data type number)
+
+      - name: recrev_pastqtrs
+        description: recrev_pastqtrs (data type number)
+
+      - name: revlabor_additionalqtrs
+        description: revlabor_additionalqtrs (data type number)
+
+      - name: hrsact_completedinqtr
+        description: hrsact_completedinqtr (data type number)
+
+      - name: hrsact_currentqtr
+        description: hrsact_currentqtr (data type number)
+
+      - name: hrsact_currentqtrm1
+        description: hrsact_currentqtrm1 (data type number)
+
+      - name: hrsact_currentqtrm1_org
+        description: hrsact_currentqtrm1_org (data type number)
+
+      - name: hrsact_currentqtrm2
+        description: hrsact_currentqtrm2 (data type number)
+
+      - name: hrsact_currentqtrm2_org
+        description: hrsact_currentqtrm2_org (data type number)
+
+      - name: hrsact_currentqtrm3
+        description: hrsact_currentqtrm3 (data type number)
+
+      - name: hrsact_currentqtrm3_org
+        description: hrsact_currentqtrm3_org (data type number)
+
+      - name: hrsact_past
+        description: hrsact_past (data type number)
+
+      - name: soft_booked_rev_additionalqtrs
+        description: soft_booked_rev_additionalqtrs (data type number)
+
+      - name: soft_booked_rev_additionalqtrs2
+        description: soft_booked_rev_additionalqtrs2 (data type number)
+
+      - name: soft_booked_rev_currentqtr
+        description: soft_booked_rev_currentqtr (data type number)
+
+      - name: soft_booked_rev_plus1qtr
+        description: soft_booked_rev_plus1qtr (data type number)
+
+      - name: soft_booked_rev_plus2qtr
+        description: soft_booked_rev_plus2qtr (data type number)
+
+      - name: soft_booked_rev_plus3qtr
+        description: soft_booked_rev_plus3qtr (data type number)
+
+      - name: soft_booked_rev_plus4qtr
+        description: soft_booked_rev_plus4qtr (data type number)
+
+      - name: soft_booked_rev_plus5qtr
+        description: soft_booked_rev_plus5qtr (data type number)
+
+      - name: total_expenses
+        description: total_expenses (data type number)
+
+      - name: total_planned_rev_usd_adsk
+        description: total_planned_rev_usd_adsk (data type number)
+
+      - name: hard_booked_rev_additionalqtrs
+        description: hard_booked_rev_additionalqtrs (data type number)
+
+      - name: hard_booked_rev_additionalqtrs2
+        description: hard_booked_rev_additionalqtrs2 (data type number)
+
+      - name: hard_booked_rev_currentqtr
+        description: hard_booked_rev_currentqtr (data type number)
+
+      - name: hard_booked_rev_plus1qtr
+        description: hard_booked_rev_plus1qtr (data type number)
+
+      - name: hard_booked_rev_plus2qtr
+        description: hard_booked_rev_plus2qtr (data type number)
+
+      - name: hard_booked_rev_plus3qtr
+        description: hard_booked_rev_plus3qtr (data type number)
+
+      - name: hard_booked_rev_plus4qtr
+        description: hard_booked_rev_plus4qtr (data type number)
+
+      - name: hard_booked_rev_plus5qtr
+        description: hard_booked_rev_plus5qtr (data type number)
+
+      - name: hourly_rate_contractcurrency
+        description: hourly_rate_contractcurrency (data type number)
+
+      - name: hourly_rate_usd
+        description: hourly_rate_usd (data type number)
+
+      - name: actual_expenses_pastqtr
+        description: actual_expenses_pastqtr (data type number)
+
+      - name: adsk_accounting_contract_type
+        description: adsk_accounting_contract_type (data type text)
+
+      - name: adsk_geo_name
+        description: adsk_geo_name (data type text)
+
+      - name: adsk_masteragreement_projecttype
+        tests:
+          - not_null:
+              name: tnrxsp_project_forecast_null_projecttype
+
+      - name: adsk_revrec_treatment
+        description: adsk_revrec_treatment (data type text)
+
+      - name: adsk_sap_project_id
+        description: adsk_sap_project_id (data type text)
+
+      - name: base_rate
+        description: base_rate (data type number)
+
+      - name: billable_hours_additional2qtr
+        description: billable_hours_additional2qtr (data type number)
+
+      - name: billable_hours_additionalqtr
+        description: billable_hours_additionalqtr (data type number)
+
+      - name: fcstchrgrev_allbillable_plus5qtr
+        description: fcstchrgrev_allbillable_plus5qtr (data type number)
+
+      - name: fcstchrgrev_allbillable_remaining_in_qtr
+        description: fcstchrgrev_allbillable_remaining_in_qtr (data type number)
+
+      - name: hard_booked_hrs_additionalqtrs
+        description: hard_booked_hrs_additionalqtrs (data type number)
+
+      - name: hard_booked_hrs_additionalqtrs2
+        description: hard_booked_hrs_additionalqtrs2 (data type number)
+
+      - name: hard_booked_hrs_currentqtr
+        description: hard_booked_hrs_currentqtr (data type number)
+
+      - name: hard_booked_hrs_plus1qtr
+        description: hard_booked_hrs_plus1qtr (data type number)
+
+      - name: hard_booked_hrs_plus2qtr
+        description: hard_booked_hrs_plus2qtr (data type number)
+
+      - name: hard_booked_hrs_plus3qtr
+        description: hard_booked_hrs_plus3qtr (data type number)
+
+      - name: hard_booked_hrs_plus4qtr
+        description: hard_booked_hrs_plus4qtr (data type number)
+
+      - name: hard_booked_hrs_plus5qtr
+        description: hard_booked_hrs_plus5qtr (data type number)
+
+      - name: current_billable_charge
+        description: current_billable_charge (data type number)
+
+      - name: current_billable_charge_ratable_billing
+        description: current_billable_charge_ratable_billing (data type number)
+
+      - name: current_billable_time
+        description: current_billable_time (data type number)
+
+      - name: dt
+        description: dt (data type timestamp_ltz)
+
+      - name: estimated_expenses_additional2qtrs
+        description: estimated_expenses_additional2qtrs (data type number)
+
+      - name: estimated_expenses_additionalqtrs
+        description: estimated_expenses_additionalqtrs (data type number)
+
+      - name: estimated_expenses_currentqtr
+        description: estimated_expenses_currentqtr (data type number)
+
+      - name: estimated_expenses_plus1qtr
+        description: estimated_expenses_plus1qtr (data type number)
+
+      - name: estimated_expenses_plus2qtr
+        description: estimated_expenses_plus2qtr (data type number)
+
+      - name: estimated_expenses_plus3qtr
+        description: estimated_expenses_plus3qtr (data type number)
+
+      - name: revlabor_additionalqtrs2
+        description: revlabor_additionalqtrs2 (data type number)
+
+      - name: revlabor_currentqtr
+        description: revlabor_currentqtr (data type number)
+
+      - name: revlabor_pastqtrs
+        description: revlabor_pastqtrs (data type number)
+
+      - name: revlabor_plus1qtr
+        description: revlabor_plus1qtr (data type number)
+
+      - name: revlabor_plus2qtr
+        description: revlabor_plus2qtr (data type number)
+
+      - name: revlabor_plus3qtr
+        description: revlabor_plus3qtr (data type number)
+
+      - name: revlabor_plus4qtr
+        description: revlabor_plus4qtr (data type number)
+
+      - name: revlabor_plus6qtr
+        description: revlabor_plus6qtr (data type number)
+
+      - name: revlabor_remaining_in_qtr
+        description: revlabor_remaining_in_qtr (data type number)
+
+    tests:
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_currentqtr + soft_booked_rev_currentqtr = total_revenue_currentqtr"
+            name: tnrxsp_project_forecast_totalrevenue_currentqtr
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_plus1qtr + soft_booked_rev_plus1qtr = total_revenue_plus1qtr"
+            name: tnrxsp_project_forecast_totalrevenue_plus1qtr
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_plus2qtr + soft_booked_rev_plus1qtr = total_revenue_plus2qtr"
+            name: tnrxsp_project_forecast_totalrevenue_plus2qtr
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_plus3qtr + soft_booked_rev_plus3qtr = total_revenue_plus3qtr"
+            name: tnrxsp_project_forecast_totalrevenue_plus3qtr
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_plus4qtr + soft_booked_rev_plus4qtr = total_revenue_plus4qtr"
+            name: tnrxsp_project_forecast_totalrevenue_plus4qtr
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_plus5qtr + soft_booked_rev_plus5qtr = total_revenue_plus5qtr"
+            name: tnrxsp_project_forecast_totalrevenue_plus6qtr
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_additionalqtrs + soft_booked_rev_additionalqtrs = total_revenue_additionalqtrs"
+            name: tnrxsp_project_forecast_totalrevenue_additionalqtrs
+      - dbt_utils.expression_is_true:
+            expression: "hard_booked_rev_additionalqtrs2 + soft_booked_rev_additionalqtrs2 = total_revenue_additional2qtr"
+            name: tnrxsp_project_forecast_totalrevenue_additionalqtrs2
+      
+
+    
+
+
+
+  - name: gcd_as_is_service_purchase_shared
+    columns:
+      - name: agreement_status
+        description: The status of the ECA record.
+
+      - name: as_is_days
+        description: the credit quantity divided into days
+
+      - name: catch_up_rate
+        description: catch up rate to the remaining days
+
+      - name: comments
+        description: comments
+
+      - name: extension_credits
+        description: credits associated the purchase extension
+
+      - name: extension_credits_value
+        description: credit value associated the purchase extension
+
+      - name: final_days_delivered
+        description: days delivered for the purchase
+
+      - name: final_remaining_days
+        description: remaining days in the purchase
+
+      - name: more_than_one_expiry_with_same_date
+        description: if more than on expiry or not
+
+      - name: name
+        description: the name of the service purchase
+
+      - name: account_id
+        description: the salesforce *id* of the account to which the eca is associated.
+
+      - name: account_name
+        description: the *name* of the account to which the eca is associated.
+
+      - name: agreement_id
+        description: the salesforce id of the eca record
+
+      - name: agreement_name
+        description: the name of the eca
+
+      - name: purchase_date
+        description: purchase date of the service
+
+      - name: remaining_budget_days
+        description: the budget days i.e credit quantity/8 over the exhibit for their expiration dates
+
+      - name: remaining_months
+        description: remaining months wrt to the expiration date
+
+      - name: service_purchase_id
+        description: the unique service purchase id
+
+      - name: conditional_format
+        description: description
+
+      - name: consultant_days_delivered_per_expiry
+        description: the hours delivered per expiry
+
+      - name: created_date
+        description: the date when the service purchase was created on sfdc
+
+      - name: credits_expired
+        description: credits expired associated to the purchase
+
+      - name: credit_quantity
+        description: credit quantity associated to the purchase
+
+      - name: credit_value
+        description: credit value associated to the purchase
+
+      - name: currencyisocode
+        description: currency code
+
+      - name: exhibit_start_date
+        description: the date from when this exhibit will start.
+
+      - name: exhibit_status
+        description: the status of the exhibit .
+
+      - name: exhibit_type
+        description: the type of exhibit record
+
+      - name: exhibit_type_as_is
+        description: the type of exhibit - as or is
+
+      - name: expiration_date
+        description: the expiration date for the service purchase
+
+      - name: exhibit_end_date
+        description: the date from when this exhibit will end.
+
+      - name: exhibit_id
+        description: the id of the exhibit record
+
+      - name: exhibit_name
+        description: the name of the exhibit
+
+      - name: stand_alone
+        description: standalone service purchase or not
+
+      - name: total_amount
+        description: total amount associated to the purchase
+
+  - name: gcd_asis_ma_hours_breakdown_private
+    columns:
+      - name: project_name
+        description: project name
+
+      - name: project_start_date
+        description: project start date
+
+      - name: project_state
+        description: project status
+
+      - name: project_unique_id
+        description: unique project id
+
+      - name: rev_forecast_contract_type
+        description: the rev forecast contract type assigned by ac
+
+      - name: travel_time
+        description: time/hours on travel
+
+      - name: days_to_deliver_per_month
+        description: consultant and pm days per month
+
+      - name: no_of_months_executed_original
+        description: no of months delivered
+
+      - name: no_of_month_executed
+        description: no of months delivered
+
+      - name: pm_days_to_deliver_per_month
+        description: pm days delivered per month
+
+      - name: pm_hrs_to_deliver_per_month
+        description: pm hours delivered per month
+
+      - name: pm_time
+        description: time/hours on the pm
+
+      - name: project_budget_current_billable_time
+        description: billable current time
+
+      - name: project_budget_current_time
+        description: current time
+
+      - name: project_code
+        description: unique project code
+
+      - name: project_end_date
+        description: project end date
+
+      - name: project_manager
+        description: project manager name
+
+      - name: calculated_contract_month
+        description: difference between contract end and start date
+
+      - name: consultant_days_to_deliver_per_month
+        description: consultant days per month
+
+      - name: consultant_hours_to_deliver_per_month
+        description: consultant hours per month
+
+      - name: consultant_time
+        description: consultant time
+
+      - name: contractual_end_date
+        description: entered by pm when project goes active.
+
+      - name: contract_end_date
+        description: contract end date for the ai is project
+
+      - name: contract_start_date
+        description: contract start date for the ai is project
+
+
+  - name: gcd_as_is_tenrox_parent_projects_shared
+    columns:
+      - name: contract_start_date
+        description: contract start date for the project
+
+      - name: csm_lead
+        description: name of the csm
+
+      - name: cs_date_engagement_survey_sent
+        description: the date ac engagement survey sent
+
+      - name: cs_discipline
+        description: description
+
+      - name: cs_project_type
+        description: description
+
+      - name: displayed_currency
+        description: displayed currency (usd)
+
+      - name: eac_cost
+        description: the estimated costs at completion
+
+      - name: eac_revenue
+        description: the estimated revenue at completion
+
+      - name: error
+        description: description
+
+      - name: escalation_reason
+        description: the escalation reason
+
+      - name: escalation_status_and_action
+        description: the escalation status & action
+
+      - name: final_work_date
+        description: the last date what hours are booked on a project
+
+      - name: geo
+        description: geo of the project
+
+      - name: geo_2
+        description: geo of the project
+
+      - name: geo_delivery
+        description: delivery geo of the master agreement
+
+      - name: govpmdoc_delivery_manager
+        description: the delivery manager
+
+      - name: gs_service_line
+        description: the service line associated to the work. (bim, data management etc)
+
+      - name: gs_service_line_primary_product
+        description: the product primarily targeted by this project - e.g. revit
+
+      - name: gs_service_line_project_type
+        description: the type of project - e.g. business consulting, technology consulting, standards development
+
+      - name: gs_service_line_sub_industry
+        description: the sub industry
+
+      - name: hours_booked
+        description: the hours booked
+
+      - name: hours_eac
+        description: the hours estimated at completion (this will be the hours booked by consultants for time already delivered plus the hours eastimated by the project manager in the project workplan to the end of the project)
+
+      - name: hours_etc
+        description: the hours estimated to complete this project
+
+      - name: initial_work_date
+        description: the first date that hours are booked on a project (this not the same as project start date)
+
+      - name: margin_variance_category
+        description: margin variance category
+
+      - name: margin_variance_description
+        description: project manager entered reason for variance between plan and actuals.
+
+      - name: master_agreement_id
+        description: the id of the master agreement, same as the agreement name from sfdc
+
+      - name: master_agreement_name
+        description: master agreement name
+
+      - name: packaged_offerings
+        description: the packaged offerings
+
+      - name: parent_child_key
+        description: the key to join parent to child as is projects
+
+      - name: project_manager_eeid
+        description: project manager employee id
+
+      - name: project_manager_geo
+        description: geo of the project manager
+
+      - name: project_manager_name
+        description: project manager name
+
+      - name: project_name
+        description: project name
+
+      - name: project_start_date
+        description: project start date
+
+      - name: project_state
+        description: project status
+
+      - name: project_type
+        description: type of the project - as parent, is parent, as master etc
+
+      - name: revenue_recognition_treatment
+        description: the revenue recognition treatment
+
+      - name: tenrox_tracking_no
+        description: tenrox tracking number - used to connect to se
+
+      - name: time_category
+        description: picklist values:customer,productive utilized,internal investment,bus dev,admin,leave time
+
+      - name: pa_contract_date
+        description: the date the overarching contract against which this project is running was set. for example the start date of the consulting exhibit
+
+      - name: pa_cso_contract_date
+        description: the date of the sco was signed.
+
+      - name: pa_master_credits_purchased
+        description: the total number of credits purchased by the contract.
+
+      - name: pa_sco_expense_credits
+        description: the total number of credits allocated for expenses
+
+      - name: pa_sco_labor_credits
+        description: the total number of credits allocated for labor (effort)
+
+      - name: planned_end_date
+        description: the contractual end date
+
+      - name: plan_cost
+        description: the planned cost for the project
+
+      - name: plan_hours
+        description: the planned hours for the project
+
+      - name: plan_revenue
+        description: the planned revenue associated to this project
+
+      - name: pm_hrs_budget
+        description: description
+
+      - name: portfolio_manager
+        description: delivery manager name
+
+      - name: portfolio_name
+        description: portfolio name- can be either a geo subdivision or an industry subdivision
+
+      - name: prior_fy_cost
+        description: costs assigned to the previous finalcial year
+
+      - name: project_code
+        description: unique project code
+
+      - name: project_currency
+        description: the project currency
+
+      - name: project_end_date
+        description: project end date
+
+      - name: project_health_customer
+        description: the project health - customer
+
+      - name: project_health_overall
+        description: the project health - overall
+
+      - name: project_health_quality
+        description: the project health - quality
+
+      - name: project_health_resource
+        description: the project health - resource
+
+      - name: project_health_schedule
+        description: the project health - schedule
+
+      - name: project_id
+        description: unique project id
+
+      - name: accounting_contract_type
+        description: the revenue forecast contract type
+
+      - name: ac_contract_type
+        description: the rev forecast contract type assigned by ac
+
+      - name: ac_projgovernance
+        description: the project governance category
+
+      - name: ac_se_name1
+        description: the tech sol exec 1 name
+
+      - name: ac_se_name2
+        description: the tech sol exec 2 name
+
+      - name: client_csn
+        description: the customer csn
+
+      - name: client_name
+        description: the customer name as defined in tenrox (this name may or may not match the name on the eca
+
+      - name: consultant_days_budget
+        description: description
+
+      - name: consultant_hrs_budget
+        description: description
+
+      - name: contract_end_date
+        description: contract end date for project
+
+
+  - name: gcd_as_is_tenrox_child_projects_shared
+    columns:
+      - name: master_agreement_name
+        description: master agreement name
+
+      - name: packaged_offerings
+        description: the packaged offerings
+
+      - name: parent_child_key
+        description: the key to join parent to child as is projects
+
+      - name: project_manager_eeid
+        description: project manager employee id
+
+      - name: project_manager_geo
+        description: geo of the project manager
+
+      - name: project_manager_name
+        description: project manager name
+
+      - name: project_name
+        description: project name
+
+      - name: project_start_date
+        description: project start date
+
+      - name: project_state
+        description: project status
+
+      - name: project_type
+        description: type of the project - as parent, is parent, as master etc
+
+      - name: revenue_recognition_treatment
+        description: the revenue recognition treatment
+
+      - name: tenrox_tracking_no
+        description: tenrox tracking number - used to connect to se
+
+      - name: time_category
+        description: picklist values:customer,productive utilized,internal investment,bus dev,admin,leave time
+
+      - name: contract_start_date
+        description: contract start date for the project
+
+      - name: csm_lead
+        description: name of the csm
+
+      - name: cs_date_engagement_survey_sent
+        description: the date ac engagement survey sent
+
+      - name: cs_discipline
+        description: the cs discipline - thought leadership,non-strategic etc
+
+      - name: cs_project_type
+        description: the project type - strategy and planning,technology implementation (technology starter packs),assessment and evaluation etc
+
+      - name: displayed_currency
+        description: displayed currency (usd)
+
+      - name: eac_cost
+        description: the estimated costs at completion
+
+      - name: eac_revenue
+        description: the estimated revenue at completion
+
+      - name: escalation_reason
+        description: the escalation reason
+
+      - name: escalation_status_and_action
+        description: the escalation status & action
+
+      - name: final_work_date
+        description: the last date what hours are booked on a project
+
+      - name: geo
+        description: geo of the project
+
+      - name: geo_2
+        description: geo of the project
+
+      - name: geo_delivery
+        description: delivery geo of the master agreement
+
+      - name: govpmdoc_delivery_manager
+        description: the delivery manager
+
+      - name: gs_service_line
+        description: the service line associated to the work. (bim, data management etc)
+
+      - name: gs_service_line_primary_product
+        description: the product primarily targeted by this project - e.g. revit
+
+      - name: gs_service_line_project_type
+        description: the type of project - e.g. business consulting, technology consulting, standards development
+
+      - name: gs_service_line_sub_industry
+        description: the sub industry
+
+      - name: hours_booked
+        description: the hours booked
+
+      - name: hours_eac
+        description: the hours estimated at completion (this will be the hours booked by consultants for time already delivered plus the hours eastimated by the project manager in the project workplan to the end of the project)
+
+      - name: hours_etc
+        description: the hours estimated to complete this project
+
+      - name: initial_work_date
+        description: the first date that hours are booked on a project (this not the same as project start date)
+
+      - name: margin_variance_category
+        description: margin variance category
+
+      - name: margin_variance_description
+        description: project manager entered reason for variance between plan and actuals.
+
+      - name: master_agreement_id
+        description: the id of the master agreement, same as the agreement name from sfdc
+
+      - name: pa_contract_date
+        description: the date the overarching contract against which this project is running was set. for example the start date of the consulting exhibit
+
+      - name: pa_cso_contract_date
+        description: the date of the sco was signed.
+
+      - name: pa_master_credits_purchased
+        description: the total number of credits purchased by the contract.
+
+      - name: pa_sco_expense_credits
+        description: the total number of credits allocated for expenses
+
+      - name: pa_sco_labor_credits
+        description: the total number of credits allocated for labor (effort)
+
+      - name: planned_end_date
+        description: the contractual end date
+
+      - name: plan_cost
+        description: the planned cost for the project
+
+      - name: plan_hours
+        description: the planned hours for the project
+
+      - name: plan_revenue
+        description: the planned revenue associated to this project
+
+      - name: portfolio_manager
+        description: delivery manager name
+
+      - name: portfolio_name
+        description: portfolio name- can be either a geo subdivision or an industry subdivision
+
+      - name: prior_fy_cost
+        description: costs assigned to the previous finalcial year
+
+      - name: project_code
+        description: unique project code
+
+      - name: project_currency
+        description: the project currency
+
+      - name: project_end_date
+        description: project end date
+
+      - name: project_health_customer
+        description: the project health - customer
+
+      - name: project_health_overall
+        description: the project health - overall
+
+      - name: project_health_quality
+        description: the project health - quality
+
+      - name: project_health_resource
+        description: the project health - resource
+
+      - name: project_health_schedule
+        description: the project health - schedule
+
+      - name: project_id
+        description: unique project id
+
+      - name: accounting_contract_type
+        description: the revenue forecast contract type
+
+      - name: ac_contract_type
+        description: the rev forecast contract type assigned by ac
+
+      - name: ac_projgovernance
+        description: the project governance category
+
+      - name: ac_se_name1
+        description: the tech sol exec 1 name
+
+      - name: ac_se_name2
+        description: the tech sol exec 2 name
+
+      - name: client_csn
+        description: the customer csn
+
+      - name: client_name
+        description: the customer name as defined in tenrox (this name may or may not match the name on the eca
+
+      - name: contract_end_date
+        description: contract end date for project
+
+
+
+  - name: gcd_utilization_resources_private
+    columns:
+      - name: active_site
+        description: geo of the user
+
+      - name: active_site_new
+        description: calculated column
+
+      - name: approval_group
+        description: approval group of the user
+
+      - name: approval_group_manager
+        description: approval group manager
+
+      - name: bymonth_default
+        description: default value
+
+      - name: current_rate
+        description: rate of the user/resource
+
+      - name: current_rate_currency_code
+        description: currency code
+
+      - name: email
+        description: email of the resource/user
+
+      - name: employee_id
+        description: employee id of the user/resource
+
+      - name: forecasted_billing_rate
+        description: forecasted billing rate
+
+      - name: forecasted_cost_rate
+        description: forecasted costrate
+
+      - name: functional_group
+        description: functional group o the resource
+
+      - name: functional_group_manager
+        description: functional group manager
+
+      - name: hire_date
+        description: hire date of the resource/user
+
+      - name: holiday_set
+        description: holidat set
+
+      - name: master_site
+        description: geo of the master project
+
+      - name: rate_effective_date
+        description: rate effective date
+
+      - name: region
+        description: region of the resource
+
+      - name: resource
+        description: full name of the resource
+
+      - name: resource_id
+        description: resource id
+
+      - name: role
+        description: user role
+
+      - name: row_number
+        description: row_number
+
+      - name: security_role
+        description: role of the user
+
+      - name: service_date
+        description: service date
+
+      - name: termination_date
+        description: termination date
+
+      - name: title
+        description: user title
+
+      - name: user_first_name
+        description: user first name
+
+      - name: user_id
+        description: user id
+
+      - name: user_is_active
+        description: is user active or not
+
+      - name: user_last_name
+        description: user last name
+
+      - name: user_time_factor
+        description: user time factor
+
+      - name: user_type
+        description: user type - employee
+
+      - name: user_utilization_target
+        description: utilization target of the user
+
+
+  - name: gcd_utilization_forecast_private
+    columns:
+      - name: delivery_geo
+        description: delivery geo of the master agreement
+
+      - name: entry_date
+        description: date when the forecast hours are allocated
+
+      - name: hours
+        description: allocated forecasted hours for the project
+
+      - name: is_hard_booking
+        description: it it hard booked hours or soft booked hours
+
+      - name: portfolio
+        description: portfolio name
+
+      - name: project_code
+        description: unique project code
+
+      - name: project_id
+        description: unique project id
+
+      - name: project_manager
+        description: project manager name
+
+      - name: project_name
+        description: project name
+
+      - name: project_state
+        description: project status
+
+      - name: region
+        description: region of the project
+
+      - name: resource_allocation_hard_booking_hours
+        description: hard booked hours
+
+      - name: resource_id
+        description: id of the resource
+
+      - name: sap_project_id
+        description: sap project id
+
+      - name: time_category
+        description: picklist values:customer,productive utilized,internal investment,bus dev,admin,leave time
+
+      - name: user_name
+        description: user name against hours are forecasted and allocated
+
+      - name: user_resource_group
+        description: user resource group
+
+
+  - name: gcd_utilization_hours_private
+    columns:
+      - name: billable
+        description: is it billable or not
+
+      - name: entry_date
+        description: date when the hours are allocated
+
+      - name: entry_is_approved
+        description: is the entry approved or not
+
+      - name: limit_date
+        description: the date limit upto when the hours are allocated
+
+      - name: project_code
+        description: unique project code
+
+      - name: project_name
+        description: project name
+
+      - name: task_code
+        description: task code
+
+      - name: task_name
+        description: the task of the project to which the hours are allocated
+
+      - name: total_time
+        description: allocated hours for the project
+
+      - name: user_id
+        description: id of the user to which hours are allocated
+
+      - name: utilized
+        description: are the hours utilised or not
+
+      - name: user_name
+        description: name of the user
+
+
+  - name: gcd_utilization_resource_hours_private
+    columns:
+      - name: resource_uilization_unique_id
+        description: resource id
+
+      - name: role_unique_id
+        description: role id
+
+      - name: utilization_billable_booking_hours
+        description: booking hours
+
+      - name: utilization_billable_hard_booking_hours
+        description: billable hard booking hours
+
+      - name: utilization_billable_soft_booking_hours
+        description: billable soft booking hours
+
+      - name: utilization_date
+        description: utilization date
+
+      - name: utilization_exception_notes
+        description: exception notes
+
+      - name: utilization_hard_booking_hours
+        description: hard booking hours
+
+      - name: utilization_non_billable_booking_hours
+        description: non billable booking hours
+
+      - name: utilization_non_billable_hard_booking_hours
+        description: non billable hard booking hours
+
+      - name: utilization_non_billable_soft_booking_hours
+        description: non billable softbooking hours
+
+      - name: utilization_non_working_hours
+        description: time off hours
+
+      - name: utilization_overallocated_hours
+        description: over allocated hours
+
+      - name: utilization_overhead_hours
+        description: over head hours
+
+      - name: user_first_name
+        description: user first name
+
+      - name: user_id
+        description: user id
+
+      - name: utilization_overload_hours
+        description: over load hours
+
+      - name: utilization_soft_booking_hours
+        description: soft booking hours
+
+      - name: utilization_total_booking_hours
+        description: total booking hours
+
+      - name: utilization_total_working_hours
+        description: total working hours
+
+      - name: utilization_working_hours
+        description: working ohurs
+
+      - name: user_last_name
+        description: user last name
+
+      - name: utilization_actual_billable_hours
+        description: billable hours of the user
+
+      - name: utilization_actual_billing_base_currency
+        description: billing currency
+
+      - name: utilization_actual_cost_base_currency
+        description: cost currency
+
+      - name: utilization_actual_non_billable_hours
+        description: non billable hours
+
+      - name: utilization_available_hours
+        description: available hours
+
+  - name: gcd_utilization_hours_forecast_private
+    columns:
+      - name: project_state
+        description: project status
+
+      - name: project_travel
+        description: calculate the hours for "travel time"
+
+      - name: pto
+        description: calculate the hours for "personal time off"
+
+      - name: rate
+        description: rate of the user
+
+      - name: resource_id
+        description: resource id
+
+      - name: resource_id_2
+        description: calculated column - resource_id_2
+
+      - name: resource_id_a
+        description: calculated column - resource_id_a
+
+      - name: soft_booked_hours
+        description: soft booked hours
+
+      - name: entry_date
+        description: date when the forecast hours are allocated
+
+      - name: entry_from
+        description: calculated column - entry from
+
+      - name: entry_is_approved
+        description: is the entry approved or not?
+
+      - name: excluded_hours
+        description: subtracts hours submitted during exclusion perioed (which is a list of resources and dates which should not be considered for baseline calculations)
+
+      - name: fcst_billable
+        description: calculates the billable hours forecast
+
+      - name: fcst_billable_a
+        description: includes actual hours onto the forecast calculation
+
+      - name: fcst_billable_a_f
+        description: includes actual hours onto the forecast calculation
+
+      - name: fcst_billable_f
+        description: cosiders only forecast billalbe hours
+
+      - name: fiscal_quarter
+        description: fiscal quarter
+
+      - name: billable_hours
+        description: billable hours
+
+      - name: billing_work_type
+        description: calculated column - billing work type
+
+      - name: bus_dev
+        description: calculates actual hours for "business development" task category
+
+      - name: bymonth
+        description: entry date in terms of month
+
+      - name: bymonthresouceid_2
+        description: calculate column
+
+      - name: category_actuals
+        description: classifies the actual hours based on "task names", "task code" , "time category" and "project name" fields
+
+      - name: category_fcst
+        description: classifies the forecast hours based on "task names", "task code" , "time category" and "project name" fields
+
+      - name: contract_end_date
+        description: contract end date for project
+
+      - name: contract_start_date
+        description: contract start date for project
+
+      - name: cost
+        description: cost i.e hours * forecasted cost rate
+
+      - name: derived_end_exclusion
+        description: calculated column - derived end exclusion
+
+      - name: derived_start_exclusion
+        description: calculated column  - derived end exlcusion
+
+      - name: month_count
+        description: allocates a number to the months:0 for current month,-1 for previous month,1 next month (...)
+
+      - name: non_paid_leave
+        description: calculate the hours where [project name] = ""leave time""
+
+      - name: past_or_future
+        description: same as actual or forecast
+
+      - name: functional_group
+        description: brings the functional group for each resource based on their id
+
+      - name: generic_resource
+        description: flags generic resources
+
+      - name: gen_res_and_empty_task
+        description: flags projects related to generic resources and no task name
+
+      - name: hard_booked_hours
+        description: hour booked by consultant and approved by their manager
+
+      - name: has_submitted_hours_during_exclusion
+        description: flags hours submitted during exclusion perioed (which is a list of resources and dates which should not be considered for baseline calculations)
+
+      - name: hours
+        description: the hours allocated
+
+      - name: hours_excluded
+        description: hours submitted during exclusion perioed (which is a list of resources and dates which should not be considered for baseline calculations)
+
+      - name: is_3rd_party
+        description: flags 3rd party resources
+
+      - name: is_hard_booking
+        description: ts it hard booking or soft booking?
+
+      - name: productive_utilized_projects
+        description: same as "customer utilization"
+
+      - name: project_code
+        description: unique project code
+
+      - name: user_name
+        description: user name
+
+      - name: project_name
+        description: project name
+
+      - name: actual_billable
+        description: find the billable rate for actual hours
+
+      - name: actual_forecast
+        description: flags if the entry date if actual (past) or forcast (future)
+
+      - name: baseline_hours
+        description: calculates the total hours for working days = baselien
+
+      - name: billable
+        description: is it billable or not
+
+      - name: task_code
+        description: task code
+
+      - name: task_name
+        description: task name
+
+      - name: time_category
+        description: picklist values:customer,productive utilized,internal investment,bus dev,admin,leave time
+
+      - name: time_category_actual
+        description: time category from the project details
+
+      - name: user_id
+        description: id of the user
+
+      - name: resource_name
+        description: name of the resource
+
+      - name: role_name
+        description: role of the user
+
+      - name: user_resource_group
+        description: resource group of the user
+
+      - name: user_role
+        description: role of the user
+
+      - name: utilized
+        description: are the hours utilised or not
+
+      - name: valid_or_not
+        description: flags actual vs forecast logic (margin variance)
+
+      - name: role_name
+        description: role of the user/resource
+
+  - name: gcd_project_details_private
+    columns:
+      - name: sqlscriptversion
+        description: sql script version
+
+      - name: tenrox_tracking_no
+        description: tenrox tracking number - used to connect to se
+
+      - name: time_category
+        description: picklist values:customer,productive utilized,internal investment,bus dev,admin,leave time
+
+      - name: total_margin
+        description: calculated column - total margin
+
+      - name: total_margin_pc
+        description: calculated column - total margin percentage
+
+      - name: total_mv
+        description: calculated column - total moving average
+
+      - name: total_mv_pc
+        description: calculated column - total moving average percentage
+
+      - name: total_var_range
+        description: calculated column
+
+      - name: ultimate_parent_eca_id
+        description: the salesforce *id* of the *ultimate parent eca* record.
+
+      - name: ultimate_parent_eca_name
+        description: the *name* of the *ultimate parent eca* record.
+
+      - name: project_state
+        description: project status
+
+      - name: project_type
+        description: type of the project - master, sco-ratable, sco-non-ratable,etc
+
+      - name: projhealth_customer
+        description: the project health - customer
+
+      - name: projhealth_overall
+        description: the project health - overall
+
+      - name: projhealth_quality
+        description: the project health - quality
+
+      - name: projhealth_resource
+        description: the project health - resource
+
+      - name: projhealth_schedule
+        description: the project health - schedule
+
+      - name: revrectreatment
+        description: the revenue recognition treatment
+
+      - name: row_number
+        description: row_number
+
+      - name: service_line
+        description: the service line associated to the work. (bim, data management etc)
+
+      - name: service_line_primary_product
+        description: the product primarily targeted by this project - e.g. revit
+
+      - name: service_line_project_type
+        description: the type of project - e.g. business consulting, technology consulting, standards development
+
+      - name: service_line_sub_industry
+        description: the sub industry
+
+      - name: sfdc_opp_num
+        description: the salesforce opportunity number used to track the presales of this sco
+
+      - name: displayed_currency
+        description: displayed currency (usd)
+
+      - name: eac_cost
+        description: the estimated costs at completion
+
+      - name: eac_revenue
+        description: the estimated revenue at completion
+
+      - name: eba_analytics_name_key
+        description: eba /ultimate parent eca name as produced by eax team
+
+      - name: escalation_reason
+        description: the escalation reason
+
+      - name: escalation_statusandaction
+        description: escalation status
+
+      - name: exhibit_active_status
+        description: exhibit active status
+
+      - name: exhibit_end_date
+        description: the date from when this exhibit will end.
+
+      - name: exhibit_id
+        description: the id of the exhibit record
+
+      - name: exhibit_name
+        description: the name of the exhibit
+
+      - name: exhibit_start_date
+        description: the date when the exhibit will start.
+
+      - name: final_workdate
+        description: the last date what hours are booked on a project
+
+      - name: billable_margin
+        description: finds the delta between [eac_revenue] and [project cost]
+
+      - name: billable_margin_pc
+        description: finds the % between [billable margin] and [eac_revenue]
+
+      - name: billable_mv
+        description: finds the delta between [billable margin] and [baseline margin]
+
+      - name: billable_mv_pc
+        description: finds the % between [billable margin %] and [baseline margin %]
+
+      - name: billable_var_range
+        description: sorts the delta above into the ranges:"< -10"," -10 -> -5","-5 -> 0"," 0 -> 5"," 5 -> 10"
+
+      - name: business_development_cost
+        description: calculated column - business development cost
+
+      - name: csm_lead
+        description: name of the csm
+
+      - name: cs_date_engagement_survey_sent
+        description: the date ac engagement survey sent
+
+      - name: customer_name
+        description: customer name
+
+      - name: master_agreement_id
+        description: the id of the master agreement, same as the agreement name from sfdc
+
+      - name: master_agreement_nm
+        description: the master agreement name of the project
+
+      - name: nonbillable_travel_cost
+        description: the non billable cost associated to the project
+
+      - name: packaged_offerings
+        description: the packaged offerings
+
+      - name: pa_master_contract_dt
+        description: the date the overarching contract against which this project is running was set. for example the start date of the consulting exhibit
+
+      - name: pa_master_credits_purchased
+        description: the total number of credits purchased by the contract.
+
+      - name: pa_sco_contract_dt
+        description: the date of the sco was signed.
+
+      - name: pa_sco_credits_consumed
+        description: the total number of credits consumed
+
+      - name: pa_sco_expense_credits
+        description: the total number of credits allocated for expenses
+
+      - name: pa_sco_labor_credits
+        description: the total number of credits allocated for labor (effort)
+
+      - name: pa_sco_total_credits
+        description: the total number of credits allocated
+
+      - name: pa_value
+        description: calculated column - pa value
+
+      - name: percent_complete
+        description: how much hours is completed
+
+      - name: planned_end_date
+        description: the contractual end date
+
+      - name: plan_cost
+        description: the planned cost for the project
+
+      - name: plan_hours
+        description: the planned hours for the project
+
+      - name: plan_revenue
+        description: the planned revenue associated to this project
+
+      - name: portfolio_manager
+        description: delivery manager name
+
+      - name: fy_project_end_date
+        description: the last date when hours were booked by a project resource on the project.
+
+      - name: geo
+        description: the geo in which the project is executing (emea/apac/amer)
+
+      - name: geo2
+        description: geo of the project
+
+      - name: geo_delivery
+        description: delivery geo of the master agreement
+
+      - name: govpmdoc_delivery_manager
+        description: the delivery manager
+
+      - name: hrs_booked
+        description: the hours booked
+
+      - name: hrs_eac
+        description: the hours estimated at completion (this will be the hours booked by consultants for time already delivered plus the hours eastimated by the project manager in the project workplan to the end of the project)
+
+      - name: hrs_etc
+        description: the hours estimated to complete this project
+
+      - name: initial_work_date
+        description: the first date when hours are booked by a project resource on the project. note; this date will not necessary match the project_start_date but it should not pre-date it.
+
+      - name: latest_value
+        description: the recent entry date for the project
+
+      - name: margin_variance_category
+        description: margin variance category
+
+      - name: margin_variance_description
+        description: project manager entered reason for variance between plan and actuals.
+
+      - name: portfolio_name
+        description: portfolio name- can be either a geo subdivision or an industry subdivision
+
+      - name: prior_fy_cost
+        description: costs assigned to the previous finalcial year
+
+      - name: project_code
+        description: unique code associated to projects
+
+      - name: project_cost
+        description: project cost is calculated as  eac_cost - nonbillable_travel_cost - business_development_cost
+
+      - name: project_currency
+        description: the project currency
+
+      - name: project_end_date
+        description: the end date of the project
+
+      - name: project_id
+        description: unique project id
+
+      - name: project_manager_eeid
+        description: project manager employee id
+
+      - name: project_manager_geo
+        description: geo of the project manager
+
+      - name: project_manager_name
+        description: project manager name
+
+      - name: project_margin
+        description: finds the delta between [eac_revenue]) and [project cost]
+
+      - name: project_margin_pc
+        description: finds the % between [project margin] and [eac_revenue]
+
+      - name: project_mv
+        description: finds the delta between [billable margin]) and [baseline margin]
+
+      - name: project_mv_pc
+        description: finds the % between [project margin %] and [baseline margin %]
+
+      - name: project_name
+        description: name of the project
+
+      - name: project_start_date
+        description: the start date of the project
+
+      - name: accounting_contract_type
+        description: the revenue forecast contract type
+
+      - name: account_csn
+        description: the sfdc csn of the account to which eca is associated.
+
+      - name: account_name
+        description: the *name* of the account to which the eca is associated.
+
+      - name: ac_contract_type
+        description: the rev forecast contract type assigned by ac
+
+      - name: ac_proj_governance
+        description: the project governance category
+
+      - name: ac_se_name1
+        description: the tech sol exec 1 name
+
+      - name: ac_se_name2
+        description: the tech sol exec 2 name
+
+      - name: agreement_id
+        description: the salesforce id of the eca record
+
+      - name: agreement_name
+        description: the name of the eca
+
+      - name: as_is_flag
+        description: flag to denote whether project is as or is
+
+      - name: baseline_billable_delta
+        description: finds the delta between [billable margin %] and [baseline margin %]
+
+      - name: baseline_billable_delta_ranges
+        description: sorts the delta above into the ranges:"a. < -10","b. -10 -> -5","c. -5 -> 0","d. 0 -> 5","e. 5 -> 10"
+
+      - name: baseline_margin
+        description: finds the delta between [plan_revenue] and [plan_cost]
+
+      - name: baseline_margin_pc
+        description: finds the % between [baseline margin] and [plan_revenue]
+
+      - name: baseline_totaleac_delta
+        description: finds the delta between [total margin %] and [baseline margin %]
+
+      - name: baseline_totaleac_delta_ranges
+        description: sorts the delta above into the ranges:"a. < -10","b. -10 -> -5","c. -5 -> 0","d. 0 -> 5","e. 5 -> 10"
+
+      - name: baseline_totaleac_hl_delta
+        description: sorts the delta above into the ranges:"high" (>= 0.05 or <=-0.05)","low""
+
+      - name: client_csn
+        description: csn of the account/client
+
+      - name: client_name
+        description: name of the client/account
+
+
+
+
+
+
+
+
+
+
+

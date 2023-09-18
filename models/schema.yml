@@ -1,0 +1,201 @@
+
+version: 2
+
+sources:
+  - name: tenrox_private
+    database: eio_publish
+    schema: tenrox_private
+    tables:
+      - name: trvfcblitemdata
+      - name: trvfcblitem
+      - name: trvfcblcatlabel
+      - name: trvfcblcat
+      - name: trvfcblseclabel
+      - name: trvfcblsec
+      - name: trvfcbltmpl
+      - name: trvfcbaselinebudget
+      - name: trvfcbaseline
+      - name: tfcalperiod
+      - name: trateruleentry
+      - name: ttask
+      - name: ttimesheetentries
+      - name: tworktype
+      - name: ttimeentryrate
+      - name: tcomponent
+      - name: tprojectcustfld
+      - name: ttimeentry
+      - name: trplnbooking
+      - name: trplnbookingdetails
+      - name: trplnbookingattributes
+      - name: tresourcetype
+      - name: tresourcetypehist
+      - name: tchargeentry
+      - name: tusercustfld
+      - name: ttitle
+      - name: tsite
+      - name: tmapdata
+      - name: tgroup
+      - name: tholidayset
+      - name: tcharge
+      - name: tbudgetdetaillist
+      - name: tsysdefs
+      - name: tbudgetdetailentry
+      - name: tbudgetdetail
+      - name: tuserplanningrole
+      - name: tplanningrole
+      - name: tcustfld
+      - name: tcustlst
+      - name: tcustlstdesc
+      - name: tcurrassoc
+      - name: tcurrrate
+      - name: tproject
+      - name: trecognizedrevenue
+      - name: tclient
+      - name: tclientinvoice
+      - name: tcurrency
+      - name: tprojectteamresource
+      - name: tuser
+      - name: trateassocobjectlink
+      - name: traterule
+      - name: twfinstanceobject
+      - name: twfworkflowversion
+      - name: twfworkflow
+      - name: tworkflowmap
+      - name: twfinstanceactivity
+      - name: twfworkflowactivitydesc
+      - name: tportfolio
+      - name: trateassociated
+      - name: tinvoicetime
+      - name: texpentry
+      - name: tinvoicechrg
+      - name: tinvoiceexp
+      - name: tinvoiceproj
+      - name: tinvoicetask
+      - name: tmilest
+      - name: tprofdesc
+      - name: tnote
+      - name: tobjfldlink
+      - name: tfolderitem
+
+models:
+  - name: cust_adsk_marginvariance_transform
+    description: "Margin Variance Table"
+    columns:
+      - name: projectid
+        description: "Unique Project Id"
+        tests:
+          - unique:
+              name: tnrxsp_marginvariance_unique_projectid
+          - not_null:
+              name: tnrxsp_marginvariance_null_projectid
+      - name: projectcode
+        description: "Unique Project Code"
+        tests:
+          - unique:
+              name: tnrxsp_marginvariance_unique_projectcode
+          - not_null:
+              name: tnrxsp_marginvariance_null_projectcode
+      - name: eac_cost
+        description: "sum of actcostlabor_past, actcostcharge_past, fcstcostlabor_future, and fcstchrgcost_future"
+        tests:
+          - not_less_than_zero:
+              name: tnrxsp_marginvariance_not_less_than_zero_eac_cost
+              ref_column: projectid
+      - name: eac_revenue
+        description: "sum of revlabor_past, revlabor_future, revchrgrev_allbillable_past, and fcstchrgrev_allbillable_future"
+        tests:
+          - not_less_than_zero:
+              name: tnrxsp_marginvariance_not_less_than_zero_eac_revenue
+              ref_column: projectid
+      - name: hrs_booked
+        description: "sum of total time from joined TTASK and TTIMESHEETENTRIES if APPROVED = 1 and BILLABLE = 1, else NULL / 3600"
+        tests:
+          - not_less_than_zero:
+              name: tnrxsp_marginvariance_not_less_than_zero_hrs_booked
+              ref_column: projectid
+      - name: hrs_etc
+        description: "sum of hrsact_past, hrsact_nonbill_past, hrsact_utilized_past, hrsfcst_future"
+        tests:
+          - not_less_than_zero:
+              name: tnrxsp_marginvariance_not_less_than_zero_hrs_etc
+              ref_column: projectid
+      - name: plancost
+        description: "currentcosttotal * rate (if rate is null, defaulted to 1.00)"
+        tests:
+          - not_less_than_zero:
+              name: tnrxsp_marginvariance_not_less_than_zero_plancost
+              ref_column: projectid
+  - name: cust_adsk_servicesimpact_actuals_transform
+    description: "Service Impact Actuals"
+    columns:
+      - name: projectid
+        tests:
+          - not_null:
+              name: tnrxsp_servicesimpact_actuals_null_projectid
+  - name: cust_adsk_servicesimpact_projectdetails_transform
+    description: "Services Project Details"
+    columns:
+      - name: projectid
+        tests:
+          - unique:
+              name: tnrxsp_serviceimpact_project_details_unique_projectid
+          - not_null:
+              name: tnrxsp_serviceimpact_project_details_null_projectid
+  - name: cust_adsk_utilization_hours_transform
+    description: "Utilization Hours"
+    columns:
+      - name: userid
+        tests:
+          - not_null:
+              name: tnrxsp_utilization_hours_null_userid
+      - name: projectcode
+        tests:
+          - not_null:
+              name: tnrxsp_utilization_hours_null_projectcode
+      - name: taskcode
+        tests:
+          - not_null:
+              name: tnrxsp_utilization_hours_null_taskcode
+      - name: totaltime
+        description: "sum of project details total time (in seconds) / 3600"
+        tests:
+          - not_less_than_zero:
+              name: tnrxsp_utilization_hours_not_less_than_zero_totaltime
+              ref_column: projectcode || '_' || userid    as projectcode_userid
+  - name: cust_adsk_utilization_resources_transform
+    description: "Utilization Resources"
+    columns:
+      - name: employeeid
+        description: "employeeid is not unique at this point: cust_adsk_utilization_resources based on original tenrox procedure simply lists of ALL userids from PSA Tenrox. business users do not delete users"
+        tests:
+          - not_null:
+              name: tnrxsp_utilization_resources_null_employeeid
+      - name: userid
+        description: "unique id that system assigns to added users. business does not delete user records"
+        tests:
+          - unique:
+              name: tnrxsp_utilization_resources_unique_userid
+          - not_null:
+              name: tnrxsp_utilization_resources_null_userid
+      - name: hiredate
+        description: "employee hire date"
+        tests:
+          - not_null:
+              name: tnrxsp_utilization_resources_null_hiredate
+      - name: forecastedcostrate
+        description: "pulled from raw table TUSER.FORECASTCOST converted to decimal"
+        tests:
+          - not_less_than_zero:
+              name: tnrxsp_utilization_resources_not_less_than_zero_forecastedcostrate
+              ref_column: userid
+  - name: adsk_cm_project_budget_v02_transform
+    description: "Project Budget Totals"
+    columns:
+      - name: projectid
+        tests:
+          - unique:
+              severity: warn
+              name: tnrxsp_project_budget_v02_unique_projectid
+          - not_null:
+              severity: warn
+              name: tnrxsp_project_budget_v02_null_projectid
