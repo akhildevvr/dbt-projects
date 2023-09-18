@@ -1,1 +1,28 @@
+name: DBT Compile on Pull Request
+
+on:
+  pull_request:
+    types:
+      - opened  # Trigger when a pull request is opened
+
+jobs:
+  dbt-compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Replace with your desired Python version
+
+      - name: Install DBT
+        run: |
+          pip install dbt
+          dbt --version
+
+      - name: Compile DBT
+        run: dbt compile
 
