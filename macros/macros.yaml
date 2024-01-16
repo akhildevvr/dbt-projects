@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: macros
+  # This is an extra long description with Markdown
+  description: The macros
+  links:
+    - url: https://github.com/akhildevvr/dbt-projects/tree/main/macros
+      title: GitHub Repo
+      icon: github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: akhil
