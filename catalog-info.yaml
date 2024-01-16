@@ -4,7 +4,10 @@ metadata:
   name: eax-catalog-model
   title: '@eax/catalog-model'
   description: Types and validators that help describe the model of a Backstage Catalog
+  annotations:
+    backstage.io/techdocs-ref: value
 spec:
+  type: website
   lifecycle: production
   type: eax-common-library
   owner: maintainers
