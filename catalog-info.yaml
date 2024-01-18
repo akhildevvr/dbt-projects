@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: eax-catalog-model
-  title: '@eax/catalog-model'
+  title: 'eax-catalog-model'
   description: Types and validators that help describe the model of a Backstage Catalog
   annotations:
     backstage.io/techdocs-ref: value
