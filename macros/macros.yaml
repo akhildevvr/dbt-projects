@@ -1,5 +1,5 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Resource
 metadata:
   name: macros
   # This is an extra long description with Markdown
@@ -9,6 +9,7 @@ metadata:
       title: GitHub Repo
       icon: github
 spec:
-  type: service
-  lifecycle: experimental
+  type: macro
+  lifecycle: production
+  component: eax-catalog-model
   owner: akhil
