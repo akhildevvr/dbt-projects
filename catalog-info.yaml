@@ -10,4 +10,4 @@ spec:
   type: website
   lifecycle: production
   #type: eax-common-library
-  owner: maintainers
+  owner: akhil
