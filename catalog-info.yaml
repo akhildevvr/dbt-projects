@@ -11,3 +11,4 @@ spec:
   lifecycle: production
   #type: eax-common-library
   owner: akhil
+  resource : macros
