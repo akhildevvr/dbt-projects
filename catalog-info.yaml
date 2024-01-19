@@ -6,6 +6,7 @@ metadata:
   description: Types and validators that help describe the model of a Backstage Catalog
   annotations:
     backstage.io/techdocs-ref: value
+    backstage.io/linked-component: 'http://localhost:3000/catalog/default/component/macros'
   tags:
     - dbt
   links:
