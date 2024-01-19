@@ -7,7 +7,7 @@ metadata:
   annotations:
     backstage.io/techdocs-ref: value
   tags:
-    - dbt_resusable_asset
+    - dbt
   links:
     - url: https://github.com/akhildevvr/dbt-projects/tree/main/macros
       title: DBT Macros
