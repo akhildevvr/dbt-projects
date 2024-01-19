@@ -13,3 +13,4 @@ spec:
   lifecycle: production
   component: eax-catalog-model
   owner: akhil
+  subcomponentOf: eax-catalog-model
