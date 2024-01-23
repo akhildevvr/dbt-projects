@@ -9,7 +9,7 @@ metadata:
       title: GitHub Repo
       icon: github
 spec:
-  type: website
+  type: service
   lifecycle: production
   component: eax-catalog-model
   owner: akhil
