@@ -44,6 +44,7 @@ plugins:
           - domains/*
           - cakn-document-templates/*
     - glightbox
+    - techdocs-core
     - tags:
         tags_file: tags.md
 
@@ -102,3 +103,5 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
       clickable_checkbox: true
+nav:
+  - Home: index.md
