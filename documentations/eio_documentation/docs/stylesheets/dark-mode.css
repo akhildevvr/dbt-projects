@@ -1,0 +1,140 @@
+/* Headings */
+
+[data-md-color-scheme="slate"] h1 {
+  color: #fff;
+}
+
+[data-md-color-scheme="slate"] .second-icon-heading {
+  color: #ccc;
+}
+/* Header */
+
+[data-md-color-scheme="slate"] .md-main,
+[data-md-color-scheme="slate"] .md-header {
+  background-color:#000;
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color:#666;
+}
+
+
+/* Template icons */
+
+[data-md-color-scheme="slate"] .first-icon-heading {
+  color: #fff;
+}
+[data-md-color-scheme="slate"] .grey-icon-heading {
+  color: #ccc;
+}
+
+[data-md-color-scheme="slate"] main > div > div.md-content > article a,
+[data-md-color-scheme="slate"] #info-card a {
+  color: #ffc21a;
+}
+
+[data-md-color-scheme="slate"] main > div > div.md-content > article a:hover,
+[data-md-color-scheme="slate"] #info-card #support-channels a:hover {
+  text-decoration: underline;
+  color: #ffc21a;
+}
+
+[data-md-color-scheme="slate"] .admonition.note,
+[data-md-color-scheme="slate"] .admonition.warning {
+  border-width: 0;
+  border-left-width: 4px;
+  border-color:#fff;
+  background-color: #000;
+}
+
+[data-md-color-scheme="slate"] .admonition.warning {
+  border-color:#ffc21a;
+}
+
+
+/* Admonitions */
+
+
+[data-md-color-scheme="slate"]  details .note {
+  border-color: #fff;
+}
+
+[data-md-color-scheme="slate"] .note>.admonition-title:before,
+[data-md-color-scheme="slate"] .note>summary:before {
+  background-color: #fff;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset summary,
+[data-md-color-scheme="slate"] details {
+  background-color: #000;
+}
+
+
+/* Sidebars links */
+
+[data-md-color-scheme="slate"] li.md-nav__item.md-nav__item--active.md-nav__item--section.md-nav__item--nested > nav > ul > li > a,
+[data-md-color-scheme="slate"] .md-nav__link.md-nav__link--passed.md-nav__link--active,
+[data-md-color-scheme="slate"] .md-nav__item .md-nav__link--active {
+  color:#fff;
+}
+
+/* Tables */
+
+[data-md-color-scheme="slate"] .md-typeset__table table {
+  color: #ccc;
+  background-color: #666;
+}
+
+[data-md-color-scheme="slate"] .md-typeset__table table td {
+  border-color: #ccc;
+}
+
+
+[data-md-color-scheme="slate"] code {
+  color: #fff;
+}
+
+
+/* Buttons */
+
+[data-md-color-scheme="slate"] .md-button.md-button--primary {
+  background-color: #fff;
+  color:#000;
+  border: none;
+}
+
+[data-md-color-scheme="slate"] .md-button.md-button--primary:hover {
+  background-color: #ccc;
+  color:#000;
+  text-decoration: none;
+}
+
+
+/* Template instructions */
+
+[data-md-color-scheme="slate"] .md-typeset .critic.block,
+[data-md-color-scheme="slate"] mark {
+  background: #ccc;
+  color: #000;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .task-list-indicator:before {
+  background-color: white;
+}
+
+[data-md-color-scheme="slate"] .md-typeset [type=checkbox]:checked+.task-list-indicator:before {
+  background-color: #2bc275;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .critic.block a {
+  color: #5f60ff;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .critic.block .admonition a {
+  color: #ffc21a;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .critic.block code {
+  background-color: #666;
+}

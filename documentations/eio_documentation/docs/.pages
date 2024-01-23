@@ -1,0 +1,17 @@
+nav:
+    - Home :
+      - Home : index.md
+    - Customer Domain: customer-domain
+    - Metrics: metrics
+    - Analysis: analysis
+    - Decision Intelligence: decision-intelligence
+    - Onboarding: onboarding
+    - Programs: programs
+    - Experiments: experiments
+    - Blog: blog
+    - Reference:
+      - Reference : reference
+      - Code Documentations : reference/code_docs/index.html
+    - Customer Domains: domains
+
+collapse_single_pages: true

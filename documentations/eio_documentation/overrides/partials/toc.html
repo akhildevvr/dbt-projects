@@ -1,0 +1,46 @@
+{% set title = lang.t("toc") %}
+{% if config.mdx_configs.toc and config.mdx_configs.toc.title %}
+  {% set title = config.mdx_configs.toc.title %}
+{% endif %}
+
+<section id="info-card">
+  <div id="metric-template-info">
+  </div>
+  <div id="conceptual-guide-info">
+  </div>
+  <div id="dataset-template-info">
+  </div>
+  <div id="how-to-template-info">
+  </div>
+  <div id="data-impact-template-info">
+  </div>
+
+  <div id="support-channels">
+    <h2>Support channels</h2>
+    <ul>
+      <li id="slack-channel"><img src="/../assets/common/slack-icon.png" alt="Slack Icon"><a href="https://autodesk.slack.com/archives/C0169UMFM6H">#enterprise-data-products</a></li>
+      <li id="intake-request-form"><img src="/../assets/common/aha-io-icon.png" alt="Aha.io Icon"><a href="https://edaintake.ideas.aha.io/portal_session/new">Intake Request Form</a></li>
+    </ul>
+  </div>
+</section>
+
+<nav class="md-nav md-nav--secondary" aria-label="{{ title }}">
+  {% set toc = page.toc %}
+  {% set first = toc | first %}
+  {% if first and first.level == 1 %}
+    {% set toc = first.children %}
+  {% endif %}
+  {% if toc %}
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      {{ title }}
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      {% for toc_item in toc %}
+        {% include "partials/toc-item.html" %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</nav>
+
+

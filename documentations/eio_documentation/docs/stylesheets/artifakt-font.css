@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'ArtifaktElementRegular';
+  src: url('../assets/common/fonts/artifakt-web/element-web/woff2/artifakt-element-regular.woff2') format('woff2'),
+       url('../assets/common/fonts/artifakt-web/element-web/woff/artifakt-element-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'ArtifaktLegendExtraBold';
+  src: url('../assets/common/fonts/artifakt-web/legend-web/woff2/artifakt-legend-extra-bold.woff2') format('woff2'),
+       url('../assets/common/fonts/artifakt-web/legend-web/woff/artifakt-legend-extra-bold.woff') format('woff');
+}

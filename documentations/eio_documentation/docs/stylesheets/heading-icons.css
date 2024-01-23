@@ -1,0 +1,33 @@
+/* Template Heading Icons */
+
+.first-icon-heading {
+  color: #000;
+}
+
+.second-icon-heading,
+.dark-grey-icon-heading,
+.grey-icon-heading {
+  color: #666;
+}
+
+.third-icon-heading,
+.light-grey-icon-heading {
+  color: #ccc;
+}
+
+.green-icon-heading {
+  color: #2bc275;
+} 
+
+.red-icon-heading {
+  color: #d74e26;
+}
+
+.yellow-icon-heading{
+  color: #ffc21a;
+}
+
+.purple-icon-heading {
+  color: #5f60ff;
+}
+

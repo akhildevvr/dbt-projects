@@ -1,0 +1,88 @@
+#info-card a {
+  color: #5f60ff;
+}
+#info-card a:hover {
+  text-decoration: underline;
+}
+
+.md-sidebar--primary #info-card,
+#metric-template-info-main,
+#conceptual-guide-info-main,
+#dataset-template-info-main,
+#how-to-template-info-main,
+#data-impact-assessment-template-info-main {
+  display: none;
+}
+
+#metric-template-info ul,
+#conceptual-guide-info ul,
+#dataset-template-info ul,
+#how-to-template-info ul,
+#data-impact-template-info ul {
+  padding-left: 12px;
+  margin-bottom: 10px;
+}
+
+#metric-template-info li,
+#conceptual-guide-info li,
+#dataset-template-info li,
+#how-to-template-info li,
+#data-impact-template-info li {
+  list-style-type: none;
+  margin: 5px 0;
+  font-size: .65rem;
+}
+
+#info-card #support-channels {
+  margin: 30px 0 30px 12px;
+  font-size: .45rem;
+}
+
+#info-card #support-channels h2 {
+  color: var(--md-default-fg-color--light)
+}
+
+#info-card #support-channels ul {
+  padding-left: 15px;
+}
+
+#info-card #support-channels a:hover {
+  color: #5f60ff;
+}
+
+#info-card #slack-channel {
+  display: flex;
+  align-items: center;
+  font-size: .7rem;
+  margin-bottom: 12px;
+}
+
+#info-card #slack-channel img,
+#info-card #intake-request-form img {
+  margin-right: 7px;
+  width: 18px
+}
+
+#info-card #intake-request-form {
+  display: flex;
+  align-items: center;
+  font-size: .7rem;
+}
+
+#info-card .doc-status {
+  margin-top: 15px;
+}
+
+.doc-ok {
+  color: white;
+  background-color: #2bc275;
+  padding: 3px 6px;
+  font-size: .6rem;
+}
+
+.doc-wip {
+  color: white;
+  background-color: #d74e26;
+  padding: 3px 6px;
+  font-size: .6rem;
+}

@@ -1,0 +1,27 @@
+packages:
+  #- local: /usr/local/airflow/dags/dbt/adp_utils # use a local path
+  - local: /usr/local/airflow/dags/dbt/engagement/nps # use a local path
+  - local: /usr/local/airflow/dags/dbt/engagement/opportunities # use a local path
+  - local: /usr/local/airflow/dags/dbt/engagement/rnk # use a local path
+  - local: /usr/local/airflow/dags/dbt/engagement/cts_kcs # use a local path
+  - local: /usr/local/airflow/dags/dbt/engagement/accelerator_consulting_survey # use a local path
+  #- local: /usr/local/airflow/dags/dbt/engagement/professional_services_automation # use a local path
+  - local: /usr/local/airflow/dags/dbt/engagement/tenrox_procedures # use a local path
+  - local: /usr/local/airflow/dags/dbt/operational/wfm_gps # use a local path
+  - local: /usr/local/airflow/dags/dbt/monitoring/enterprise_dataset_usage_stats # use a local path
+  - local: /usr/local/airflow/dags/dbt/bi_layer # use a local path
+  #- local: /usr/local/airflow/dags/dbt/adp-enterprise # use a local path
+  - local: /usr/local/airflow/dags/dbt/adp-territory # use a local path
+  - local: /usr/local/airflow/dags/dbt/metrics/kpi_standardization # use a local path
+  - local: /usr/local/airflow/dags/dbt/access/assignment # use a local path
+  - local: /usr/local/airflow/dags/dbt/access/user_assignment # use a local path
+  - local: /usr/local/airflow/dags/dbt/customer/customer_phases # use a local path
+  - local: /usr/local/airflow/dags/dbt/engagement/ide_base # use a local path  
+  - local: /usr/local/airflow/dags/dbt/engagement/survey # use a local path
+  - local: /usr/local/airflow/dags/dbt/usage/usage_single_user_subscription # use a local path
+  - local: /usr/local/airflow/dags/dbt/usage/tflex # use a local path
+  - local: /usr/local/airflow/dags/dbt/customer/account_tflex # use a local path
+  - local: /usr/local/airflow/dags/dbt/purchase/tflex_purchase # use a local path
+  - local: /usr/local/airflow/dags/dbt/monitoring/enterprise_dataset_activity_tracker # use a local path
+  - local: /usr/local/airflow/dags/dbt/marketing/hg_insight # use a local path
+  # - local: /usr/local/airflow/dags/dbt/monitoring/data_quality # use a local path

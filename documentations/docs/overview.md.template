@@ -1,0 +1,41 @@
+{% docs __<project_name>__ %}
+
+## <Dataset Name>
+
+<Also please add if the dataset was known by some other names before>
+
+### Purpose
+
+ <Please add purpose the data set will solve>
+
+### Background
+
+<Overall summary and background>
+
+### How to Use the Data
+
+<Reference on using the dataset, Sample Queries links if possible, Reference to the queries in analysis
+section of the model - Example https://eda-data-docs.autodesk.com/#!/analysis/analysis.bi_layer.full_active_agreement_forecast>
+
+### Access pattern
+
+<What roles provides access to this data, Please mention if needs special approvals such as DNA >
+
+[Wiki Reference](https://wiki.autodesk.com/display/EAX/Onboarding+Documentation)
+
+[Data Catalog Reference](https://autodesk.atlan.com/assets/73c2d9bb-3a17-455d-bd13-23fa6bb68696/related)
+
+Load Frequecy : <>
+
+
+
+## Caveats & Clarifications
+
+| ID | Impacted Use cases | Caveat / Clarifications | Example (If Applicable) |
+| :---          | :---         | :---         | :---         |
+|1||||
+|2||||
+|3||||
+
+
+{% enddocs %}

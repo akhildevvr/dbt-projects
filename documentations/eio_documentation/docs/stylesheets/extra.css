@@ -1,0 +1,220 @@
+
+/* Light mode */
+[data-md-color-scheme="default"] {
+    --md-primary-fg-color:          #000000;
+    --md-primary-fg-color--light:   #EEEEEE;
+    --md-primary-fg-color--dark:    #CCCCCC;
+    --md-primary-bg-color:           #FFFFFF;
+    --md-primary-bg-color--light: #CCCCCC;
+}
+
+
+/* Main content links */
+
+main > div > div.md-content > article a,
+#info-card a:hover {
+  color: #5f60ff;
+}
+
+main > div > div.md-content > article a:hover {
+  text-decoration: underline;
+}
+
+/* Tabs */
+
+.md-tabs__link {
+  color: #ccc;
+  opacity: 1;
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color:#666;
+}
+
+.md-typeset .md-tag[href],
+.md-tag {
+  color: #ccc;
+  background-color: #666;
+}
+
+.md-typeset .md-tag:hover {
+  text-decoration: none;
+}
+
+div.embedded-iframe-video {
+  text-align: center;
+}
+
+
+.md-tag {
+  background: #666!important;
+}
+
+
+/* Admonitions */
+
+[data-md-color-scheme="default"] .admonition.note {
+  border-width: 0;
+  border-left-width: 4px;
+  border-color:#000;
+}
+
+[data-md-color-scheme="default"] details.note {
+  border-color: #000;
+}
+
+[data-md-color-scheme="default"] .note>.admonition-title:before,
+[data-md-color-scheme="default"] .note>summary:before {
+  background-color: #000;
+}
+
+[data-md-color-scheme="default"] .admonition.note {
+  border-width: 0;
+  border-left-width: 4px;
+  border-color: #000;
+}
+
+
+.md-typeset .admonition.note,
+.md-typeset details.note,
+.md-typeset .admonition.warning,
+.md-typeset .details.warning {
+  border-width: 0;
+  border-left-width: 4px;
+}
+
+.md-typeset .admonition.abstract,
+.md-typeset .abstract > .admonition-title:before,
+.md-typeset .abstract>summary:before,
+.md-typeset .abstract>.admonition-title:after,
+.md-typeset .abstract>summary:after {
+  background-color: #2bc275;
+  
+}
+
+.md-typeset .info > .admonition-title:before,
+.md-typeset .info>summary:before,
+.md-typeset .info>.admonition-title:after,
+.md-typeset .info>summary:after {
+  background-color: #666;
+}
+
+
+.md-typeset .question>.admonition-title:before, .md-typeset .question>summary:before {
+  background-color: #ccc;
+}
+
+.md-typeset .warning>.admonition-title:before, .md-typeset .warning>summary:before {
+  background-color: #ffc21a;
+}
+
+
+.md-typeset .admonition.question, .md-typeset details.question {
+  border-color: #d74e26;
+}
+.md-typeset .admonition.info, .md-typeset details.info,
+.md-typeset .admonition.question, .md-typeset details.question {
+  border-color: #ccc;
+}
+
+.md-typeset .admonition.warning, .md-typeset details.warning {
+  border-color: #ffc21a;
+}
+
+.md-typeset details.abstract {
+  border-color: #2bc275;
+}
+
+.md-typeset details.info {
+  border-color: #666;
+}
+
+.md-typeset .example>.admonition-title, .md-typeset .example>summary,
+.md-typeset .example>.admonition-title:before, .md-typeset .example>summary:before,
+.md-typeset .example>.admonition-title:after, .md-typeset .example>summary:after {
+  background-color: #666;
+}
+
+.md-typeset .question>.admonition-title, .md-typeset .question>summary,
+.md-typeset .question>.admonition-title:before, .md-typeset .question>summary:before,
+.md-typeset .question>.admonition-title:after, .md-typeset .question>summary:after {
+  background-color: #ccc;
+}
+
+.md-typeset details.example,
+.md-typeset details.question {
+  border-color: #ccc
+}
+
+.md-typeset .abstract>.admonition-title, .md-typeset .abstract>summary,
+.md-typeset .info>.admonition-title, .md-typeset .info>summary,
+.md-typeset .warning>.admonition-title, .md-typeset .warning>summary,
+.md-typeset .note>.admonition-title, .md-typeset .note>summary
+.md-typeset .example>.admonition-title, .md-typeset .example>summary,
+.md-typeset .question>.admonition-title, .md-typeset .question>summary {
+  background-color: white;
+}
+
+.mermaid,
+#workshop + .iframe-wrapper {
+  text-align: center;
+}
+
+/* Wider main content in desktop screens */
+
+@media only screen and (min-width: 76.25em) {
+  .md-main__inner {
+    max-width: none;
+    margin: 0 3%;
+  }
+  .md-sidebar--primary {
+    left: 0;
+  }
+  .md-sidebar--secondary {
+    right: 0;
+    margin-left: 0;
+    -webkit-transform: none;
+    transform: none;   
+  }
+}
+
+
+div.md-content > article figure a > img {
+  border: 1px solid #ccc;
+}
+
+/* Buttons */
+
+[data-md-color-scheme="default"] .md-button.md-button--primary {
+  border: none;
+}
+
+[data-md-color-scheme="default"] .md-button.md-button--primary:hover {
+  background-color: #ccc;
+  color:#fff;
+  text-decoration: none;
+}
+
+/* Document Templates */ 
+
+.md-typeset mark {
+  font-size: 0.65rem;
+}
+
+mark {
+  padding: 8px;
+}
+
+/*
+  The following CSS rule hides the "/domains/" directory from the top navigation menu on the home page
+  and the rest of the pages, while still showing the left navigation panel available in the desktop version
+  if any of the pages inside that directory are accessed via deep linking, since this /domains/ menu item is still added on
+  the .pages file in eio_documentation/docs.
+*/
+
+.md-tabs__item:has(a[href*="/domains"]),
+.md-tabs__item:has(a[href="domains"]),
+.md-tabs__item:has(a[href="domains/"]) {
+  display: none;
+}
+

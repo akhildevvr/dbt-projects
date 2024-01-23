@@ -1,0 +1,2 @@
+# Navigating Domains
+It is important to understand how to  navigate the customer domains, the tables that populate each of the domains and probably the most important element of the domains, the **relationships** between objects within the domains.
