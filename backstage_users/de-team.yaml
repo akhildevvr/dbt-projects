@@ -11,36 +11,3 @@ spec:
     picture: https://api.dicebear.com/7.x/identicon/svg?seed=Fluffy&backgroundType=solid,gradientLinear&backgroundColor=ffd5dc,b6e3f4
   parent: backstage
   children: []
----
-apiVersion: backstage.io/v1alpha1
-kind: User
-metadata:
-  name: akhil
-spec:
-  profile:
-    # Intentional no displayName for testing
-    email: akhil@autodesk.com
-    picture: https://api.dicebear.com/7.x/avataaars/svg?seed=Luna&backgroundColor=transparent
-  memberOf: [de-team]
----
-apiVersion: backstage.io/v1alpha1
-kind: User
-metadata:
-  name: uddipan
-spec:
-  profile:
-    displayName: Uddipan
-    email: uddipan@autodesk.com
-    picture: https://api.dicebear.com/7.x/avataaars/svg?seed=Leo&backgroundColor=transparent
-  memberOf: [de-team]
----
-apiVersion: backstage.io/v1alpha1
-kind: User
-metadata:
-  name: ajesh
-spec:
-  profile:
-    displayName: Ajesh
-    email: ajesh@autodesk.com
-    picture: https://api.dicebear.com/7.x/avataaars/svg?seed=Midnight&backgroundColor=transparent
-  memberOf: [de-team]
