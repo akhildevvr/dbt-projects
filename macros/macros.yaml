@@ -8,11 +8,12 @@ metadata:
     - url: https://github.com/akhildevvr/dbt-projects/tree/main/macros
       title: GitHub Repo
       icon: github
+  annotations:
+    backstage.io/techdocs-ref: value
 spec:
   type: macro
   lifecycle: production
-  component: eax-catalog-model
   owner: eax-de-team
-  subcomponentOf: eax-catalog-model
+  #subcomponentOf: eax-catalog-model
   definition:
     $text: ./from_external_stage_materialization.sql
