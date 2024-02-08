@@ -18,5 +18,5 @@ spec:
   type: service
   lifecycle: production
   #type: eax-common-library
-  owner: akhil
+  owner: eax-de-team
   

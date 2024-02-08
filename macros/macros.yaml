@@ -12,5 +12,5 @@ spec:
   type: service
   lifecycle: production
   component: eax-catalog-model
-  owner: akhil
+  owner: eax-de-team
   subcomponentOf: eax-catalog-model

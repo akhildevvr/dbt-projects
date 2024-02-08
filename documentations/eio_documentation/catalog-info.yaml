@@ -6,6 +6,6 @@ metadata:
     # this could also be `url:<url>` if the documentation isn't in the same location
     backstage.io/techdocs-ref: dir:.
 spec:
-  type: documentation
-  lifecycle: experimental
+  type: service
+  lifecycle: production
   owner: akhil
