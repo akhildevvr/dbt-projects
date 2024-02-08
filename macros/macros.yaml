@@ -14,3 +14,5 @@ spec:
   component: eax-catalog-model
   owner: eax-de-team
   subcomponentOf: eax-catalog-model
+  definition:
+    $text: ./from_external_stage_materialization.sql
