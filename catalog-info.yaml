@@ -6,7 +6,7 @@ metadata:
   description: Types and validators that help describe the model of a Backstage Catalog
   annotations:
     backstage.io/techdocs-ref: value
-    backstage.io/linked-component: 'http://localhost:3000/catalog/default/component/shared_dbt_package'
+    #backstage.io/linked-component: 'http://localhost:3000/catalog/default/component/shared_dbt_package'
   tags:
     #- dbt
   links:
@@ -19,4 +19,5 @@ spec:
   lifecycle: production
   #type: eax-common-library
   owner: eax-de-team
-  
+  hasPart:
+    - component: shared_dbt_package
