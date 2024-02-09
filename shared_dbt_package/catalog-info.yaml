@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shared_dbt_package
+  title: 'shared_dbt_package'
+  description: Types and validators that help describe the model of a Backstage Catalog
+  annotations:
+    backstage.io/techdocs-ref: value
+    backstage.io/linked-component: 'http://localhost:3000/catalog/default/component/macros'
+  tags:
+    - dbt
+  links:
+    - url: https://github.com/akhildevvr/dbt-projects/shared_dbt_package/macros
+      title: DBT Macros
+    - url: https://github.com/akhildevvr/dbt-projects/shared_dbt_package/models
+      title: DBT Models
+spec:
+  type: service
+  lifecycle: production
+  #type: eax-common-library
+  owner: eax-de-team
+  subcomponentOf: ['component:eio-reusable-assets']
+  
