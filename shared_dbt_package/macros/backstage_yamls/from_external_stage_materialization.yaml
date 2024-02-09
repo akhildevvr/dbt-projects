@@ -16,4 +16,4 @@ spec:
   owner: eax-de-team
   subcomponentOf: shared_dbt_package
   definition:
-    $text: .macros/from_external_stage_materialization.sql
+    $text: ../from_external_stage_materialization.sql
