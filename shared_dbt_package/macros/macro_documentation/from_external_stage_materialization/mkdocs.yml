@@ -1,5 +1,5 @@
-site_name: from_external_stage_materialization
-theme: material
+
+theme: readthedocs
 
 nav:
   - 'External Stage Materialization': from_external_stage_materialization.md
