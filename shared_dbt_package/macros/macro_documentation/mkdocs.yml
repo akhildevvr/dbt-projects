@@ -1,6 +1,5 @@
 site_name: from_external_stage_materialization
-theme:
-  name: material
+theme: material
 
 nav:
-  - Home: from_external_stage_materialization.md
+  - 'External Stage Materialization': from_external_stage_materialization.md
