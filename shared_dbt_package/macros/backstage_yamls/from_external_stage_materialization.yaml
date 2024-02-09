@@ -1,5 +1,5 @@
 apiVersion: backstage.io/v1alpha1
-kind: API
+kind: Component
 metadata:
   name: from_external_stage_materialization
   # This is an extra long description with Markdown
