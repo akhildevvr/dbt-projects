@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shared_python_package
+  title: 'shared_python_package'
+  description: Types and validators that help describe the model of a Backstage Catalog
+  annotations:
+    backstage.io/techdocs-ref: value
+  tags:
+    - python
+  links:
+    - url: https://github.com/akhildevvr/dbt-projects/shared_python_package/python
+      title: Python Reusable Assets
+    - url: https://github.com/akhildevvr/dbt-projects/shared_python_package/pyspark
+      title: Pyspark Reusable Assets
+spec:
+  type: service
+  lifecycle: production
+  #type: eax-common-library
+  owner: eax-de-team
+  subcomponentOf: eio-reusable-assets
+  
