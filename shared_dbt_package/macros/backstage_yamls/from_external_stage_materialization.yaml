@@ -9,7 +9,7 @@ metadata:
       title: GitHub Repo
       icon: github
   annotations:
-    backstage.io/techdocs-ref: dir:../macro_documentation
+    backstage.io/techdocs-ref: dir:../macro_documentation/from_external_stage_materialization
 spec:
   type: macro
   lifecycle: production
