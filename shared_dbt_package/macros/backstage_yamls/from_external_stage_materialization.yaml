@@ -5,7 +5,7 @@ metadata:
   # This is an extra long description with Markdown
   description: Macros
   links:
-    - url: https://github.com/akhildevvr/dbt-projects/blob/35b2cd62ffab8d2d7e9a87479347d375167ef509/shared_dbt_package/macros/from_external_stage_materialization.sql
+    - url: https://github.com/akhildevvr/dbt-projects/blob/main/shared_dbt_package/macros/from_external_stage_materialization.sql
       title: GitHub Repo
       icon: github
   annotations:
