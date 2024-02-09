@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: from_external_stage_materialization
+  # This is an extra long description with Markdown
+  description: Macros
+  links:
+    - url: https://github.com/akhildevvr/dbt-projects/blob/35b2cd62ffab8d2d7e9a87479347d375167ef509/shared_dbt_package/macros/from_external_stage_materialization.sql
+      title: GitHub Repo
+      icon: github
+  annotations:
+    backstage.io/techdocs-ref: value
+spec:
+  type: macro
+  lifecycle: production
+  owner: eax-de-team
+  subcomponentOf: shared_dbt_package
+  definition:
+    $text: .macros/from_external_stage_materialization.sql
