@@ -18,6 +18,5 @@ spec:
   lifecycle: production
   #type: eax-common-library
   owner: eax-de-team
-  subcomponentOf: 
-    - component: eio-reusable-assets
+  subcomponentOf: eio-reusable-assets
   
