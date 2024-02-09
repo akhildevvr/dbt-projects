@@ -1,0 +1,1356 @@
+version: 2
+
+sources:
+  - name: customer_success_shared # Schema
+    database: adp_workspaces
+    schema: customer_success_shared
+    tables:
+      - name: sfdc_tflex_account # Table name
+
+  - name: token_flex_core_public # Schema
+    database: adp_publish
+    tables:
+      - name: t_eccr_agg_product_usage_dd # Table name
+        tags:
+          - pre_source_validation
+        freshness:
+          error_after:
+            count: 3
+            period: day
+        loaded_at_field: dt::timestamp
+        columns:
+          - name: end_customer_agreement_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_end_customer_agreement_id
+          - name: agree_nbr
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_agree_nbr
+          - name: user_login_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_user_login_id
+          - name: txn_type_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_txn_type_nm 
+              - accepted_values: #Defining the accepted values
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_accepted_values_txn_type_nm         
+                  values:
+                    - CLOUD_CONSUMPTION
+                    - PRODUCT_CONSUMPTION
+                    - CLOUD_PRODUCT_CONSUMPTION
+                    - MANUAL_CONSUMPTION
+                    - MANUAL_ADJUSTMENT
+          - name: machine_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_machine_nm
+          - name: license_server_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_license_server_nm
+          - name: usage_dt
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_usage_dt
+          - name: usage_date_key
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_usage_date_key
+          - name: product_line_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_product_line_cd
+          - name: product_feature_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_product_feature_id
+          - name: end_customer_agreement_yr_ind
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_end_customer_agreement_yr_ind
+              - accepted_values:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_accepted_values_end_customer_agreement_yr_ind     
+                  values: [1, 2, 3, 4, 5]
+          - name: txn_units_nbr
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_txn_units_nbr
+          - name: duration_mns
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_duration_mns
+          - name: reason_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_not_null_reason_cd
+        
+      - name: t_eccr_agg_product_usage_dd_expired
+        tags:
+          - pre_source_validation
+        columns:
+          - name: end_customer_agreement_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_end_customer_agreement_id
+          - name: agree_nbr
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_agree_nbr
+          - name: user_login_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_user_login_id
+          - name: txn_type_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_txn_type_nm 
+              - accepted_values: #Defining the accepted values
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_accepted_values_txn_type_nm         
+                  values:
+                    - CLOUD_CONSUMPTION
+                    - PRODUCT_CONSUMPTION
+                    - CLOUD_PRODUCT_CONSUMPTION
+                    - MANUAL_CONSUMPTION
+                    - MANUAL_ADJUSTMENT
+          - name: machine_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_machine_nm
+          - name: license_server_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_license_server_nm
+          - name: usage_dt
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_usage_dt
+          - name: usage_date_key
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_usage_date_key
+          - name: product_feature_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_product_feature_id
+          - name: end_customer_agreement_yr_ind
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_end_customer_agreement_yr_ind
+              - accepted_values:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_accepted_values_end_customer_agreement_yr_ind     
+                  values: [0,1, 2, 3, 4, 5, 6]
+          - name: txn_units_nbr
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_txn_units_nbr
+          - name: duration_mns
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_duration_mns
+          - name: reason_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_agg_product_usage_dd_exp_not_null_reason_cd
+    
+      - name: t_eccr_token_adjustments
+        tags:
+          - pre_source_validation
+        freshness:
+          error_after:
+            count: 3
+            period: day
+        loaded_at_field: dt::timestamp
+        
+        columns:
+          - name: end_customer_agreement_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_end_customer_agreement_id
+          - name: agree_nbr
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_agree_nbr
+          - name: usage_dt
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_usage_dt
+          - name: usage_date_key
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_usage_date_key
+          - name: product_line_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_product_line_cd
+          - name: txn_type_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_txn_type_nm 
+              - accepted_values: #Defining the accepted values
+                  name: usage_tflex_t_eccr_token_adjustments_accepted_values_txn_type_nm         
+                  values:
+                    - MANUAL_CONSUMPTION
+                    - MANUAL_ADJUSTMENT
+          - name: end_customer_agreement_yr_ind
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_end_customer_agreement_yr_ind
+              - accepted_values:
+                  name: usage_tflex_t_eccr_token_adjustments_accepted_values_end_customer_agreement_yr_ind     
+                  values: [1, 2, 3, 4, 5]
+          - name: txn_units_nbr
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_txn_units_nbr
+          - name: charged_item_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_charged_item_id
+          - name: src_created_dt
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_src_created_dt
+          - name: txn_dt
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_txn_dt
+          - name: txn_qty
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_txn_qty
+          - name: reason_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_token_adjustments_not_null_reason_cd
+
+      - name: t_eccr_product_line
+        tags:
+          - pre_source_validation
+        columns:
+          - name: product_line_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_product_line_not_null_product_line_cd
+          - name: product_line_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_product_line_not_null_product_line_nm
+
+      - name: t_pseb_product_feature
+        tags:
+          - pre_source_validation
+        columns:
+          - name: product_feature_id
+            tests:
+              - not_null:
+                  name: usage_tflex_t_pseb_product_feature_not_null_product_feature_id
+          - name: product_feature_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_pseb_product_feature_not_null_product_feature_cd
+          - name: product_release_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_pseb_product_feature_not_null_product_release_cd
+
+      - name: t_eccr_service_nm
+        tags:
+          - pre_source_validation
+        columns:
+          - name: service_mktg_nm
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_service_nm_not_null_service_mktg_nm
+          - name: service_cd
+            tests:
+              - not_null:
+                  name: usage_tflex_t_eccr_service_nm_not_null_service_cd
+
+      - name: t_eccr_user_enrichment_data
+        freshness:
+          error_after:
+            count: 3
+            period: day
+        loaded_at_field: dt::timestamp
+
+      - name: t_eccr_user_enrichment_data_labels
+        freshness:
+          error_after:
+            count: 3
+            period: day
+        loaded_at_field: dt::timestamp
+
+  - name: sales_data_hub_optimized
+    database: adp_publish
+    tables:
+      - name: flexera_core_flexdetails
+        tags:
+          - pre_source_validation
+        columns:
+          - name: end_customer_contract_id
+            tests:
+              - not_null:
+                  name: usage_tflex_flexera_core_flexdetails_not_null_end_customer_contract_id
+          - name: flexdetailid
+            tests:
+              - not_null:
+                  name: usage_tflex_flexera_core_flexdetails_nm_not_null_flexdetailid
+          - name: contract_exhibit_start_date
+            tests:
+              - not_null:
+                  name: usage_tflex_flexera_core_flexdetails_nm_not_null_contract_exhibit_start_date
+          - name: contract_exhibit_end_date
+            tests:
+              - not_null:
+                  name: usage_tflex_flexera_core_flexdetails_nm_not_null_contract_exhibit_end_date
+
+      - name: flex_usage
+        tags:
+          - pre_source_validation
+        columns:
+          - name: flexdetailid
+            tests:
+              - not_null:
+                  name: usage_tflex_flex_usage_not_null_flexdetailid
+          - name: username
+            tests:
+              - not_null:
+                  name: usage_tflex_flex_usage_not_null_username
+          - name: user_hostname
+            tests:
+              - not_null:
+                  name: usage_tflex_flex_usage_not_null_user_hostname
+          - name: user_project
+            tests:
+              - not_null:
+                  name: usage_tflex_flex_usage_not_null_user_project
+          - name: date_str
+            tests:
+              - not_null:
+                  name: usage_tflex_flex_usage_not_null_date_str
+          - name: productlinecode
+            tests:
+              - not_null:
+                  name: usage_tflex_flex_usage_not_null_productlinecode
+          - name: hours_used
+            tests:
+              - not_null:
+                  name: usage_tflex_flex_usage_not_null_hours_used
+
+      - name: flexera_core_token_adjustment
+        tags:
+          - pre_source_validation
+        columns:
+          - name: flexdetailid
+            tests:
+              - not_null:
+                  name: usage_tflex_flexera_core_token_adjustment_not_null_flexdetailid
+          - name: adjustment_date
+            tests:
+              - not_null:
+                  name: usage_tflex_flexera_core_token_adjustment_not_null_adjustment_date
+          - name: use_count
+            tests:
+              - not_null:
+                  name: usage_tflex_flexera_core_token_adjustment_not_null_use_count
+
+  - name: sfdc_shared # Follow DE pattern of naming source after the schema name
+    database: bsd_publish
+    schema: sfdc_shared
+    tables:
+      - name: agreement_transaction__c
+      - name: servicecontract
+
+  - name: purchase_shared # Follow DE pattern of naming source after the schema name
+    database: eio_publish
+    schema: purchase_shared
+    tables:
+      - name: eba_contracts
+
+  - name: sharepoint_common_files # Follow DE pattern of naming source after the schema name
+    database: eio_ingest
+    schema: sharepoint_common_files
+    tables:
+      - name: full_product_list_full_product_list
+
+models:
+    # Transform Layer
+    - name: tflex_adjustment_recon_fct_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_ADJUSTMENT_RECON_FCT
+      description: Adjustment Reconciliation Table for Tflex Usage
+      columns:
+        - name: agreement_number
+          description: agreement number from SFDC table 'servicecontract'
+        - name: account_name
+          description: account name from SFDC table 'agreement_transaction__c'
+        - name: adjustment_consumption_months
+          description: adjustment consumption date truncated to monthly from SFDC table 'agreement_transaction__c'
+        - name: adjustments_submitted
+          description: count of agreement_number
+        - name: adjustments_tokens_submitted
+          description: calculates based on transaction_type__c, product_line_code__c, comments__c, and quantity__c
+        - name: adjustments_received
+          description: count of agreement_number column from tflex_usage CTE
+        - name: adjustments_tokens_received
+          description: integer sum of txn_units_nbr column from tflex_usage CTE
+        - name: equal
+          description: "boolean value: if adjustments_submitted = adjustments_received"
+        - name: adjustments_in_proof
+          description: "boolean value: if adjustments_tokens_submitted = adjustments_tokens_received"
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_flexera_monitoring_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_FLEXERA_MONITORING
+      description: Flexera tokens monitoring table
+      columns:
+        - name: ultimate_parent_account_name
+          description: Name of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_eca_name
+          description: Name of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: account_name
+          description: Name of the Account (contracted entity)
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: exhibit_id
+          description: Id of the Exhibit
+        - name: exhibit_name
+          description: Name of the Exhibit
+        - name: exhibit_start_date
+          description: Start date of the Exhibit
+        - name: exhibit_end_date
+          description: End date of the Exhibit
+        - name: tflex_reporting_platform
+          description: TFLEX reporting platform (NLRS/NLRM/Flexera)
+        - name: txn_type_name
+          description: Name of transaction type
+        - name: flexdetail_id
+          description: Flex detail Id of Flexera tokens
+        - name: usage_year
+          description: Year of tokens usage
+        - name: usage_month
+          description: Month of tokens usage
+        - name: bymonth
+          description: First date of month for tokens usage
+        - name: distinct_users
+          description: Count of distinct login users
+        - name: minutes
+          description: Sum of duration in minutes
+        - name: hours
+          description: Sum of duration in hours
+        - name: tokens
+          description: Sum of tokens
+        - name: multi_year_tokens
+          description: Sum of multi-year tokens
+        - name: annual_tokens
+          description: Sum of annual tokens (Non multi-year)
+        - name: tokens_consumed
+          description: Sum of tokens consumed
+        - name: tokens_adjusted
+          description: Sum of tokens adjusted
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_product_list_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_PRODUCT_LIST
+      description: Tflex products list updated once a year
+      columns:
+        - name: product_family
+          description: Family of product
+        - name: product_code
+          description: Code of product
+          tests: #Defining the primary key test case
+            - unique:
+                name: usage_tflex_tflex_product_list_transform_unique_product_code
+            - not_null:
+                name: usage_tflex_tflex_product_list_transform_not_null_product_code
+        - name: product_type
+          description: Type of product
+        - name: bim_nps_category
+          description: BIM Net promoter score category
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_usage_dd_fct_hist_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_USAGE_DD_FCT_HIST
+      description: Token master table
+      columns:
+        - name: ultimate_parent_account_id
+          description: Id of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_name
+          description: Name of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_csn
+          description: CSN of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_eca_id
+          description: Id of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: ultimate_parent_eca_name
+          description: Name of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: account_id
+          description: Id of the Account (contracted entity)
+        - name: account_name
+          description: Name of the Account (contracted entity)
+        - name: account_csn
+          description: CSN of the Account (contracted entity)
+        - name: parent_account_id
+          description: Id of the Parent Account in the Account Hierarchy
+        - name: parent_account_name
+          description: Name of the Parent Account in the Account Hierarchy
+        - name: parent_account_csn
+          description: CSN of the Parent Account in the Account Hierarchy
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: agreement_name
+          description: Name of the End Customer Agreement
+        - name: agreement_status
+          description: Status of the End Customer Agreement
+        - name: agreement_type
+          description: Type of the End Customer Agreement
+        - name: exhibit_id
+          description: Id of the Exhibit
+        - name: exhibit_name
+          description: Name of the Exhibit
+        - name: exhibit_active_status
+          description: Status of the Exhibit
+        - name: exhibit_start_date
+          description: Start date of the Exhibit
+        - name: exhibit_end_date
+          description: End date of the Exhibit
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: tflex_reporting_platform
+          description: TFLEX reporting platform (NLRS/NLRM/Flexera)
+        - name: agreement_number
+          description: Agreement number
+        - name: eba_analytics_id_key
+          description: Id key which is a combination of the Ultimate Parent ECA ID and Agreement ID for accounts that have more than one active agreements
+        - name: eba_analytics_name_key
+          description: Id key which is a combination of the Ultimate Parent ECA Name and Agreement Name for accounts that have more than one active agreements
+        - name: user_login_id
+          description: Login Id of user
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: machine_name
+          description: Name of machine
+        - name: license_server_name
+          description: Name of licensed server
+        - name: usage_dt
+          description: Date of usage
+        - name: usage_date_key
+          description: Date of usage in key - YYYYMMDD
+        - name: product_line_cd
+          description: Product line code
+        - name: product_line_name
+          description: Product line name
+        - name: product_feature_id
+          description: Feature Id of product
+        - name: product_feature_cd
+          description: Feature code of product
+        - name: product_release_cd
+          description: Release code of product
+        - name: service_mktg_name
+          description: Name of service marketing
+        - name: product_name
+          description: Name of product
+        - name: product_version
+          description: Version of product
+        - name: service_category_name
+          description: Name of service category
+        - name: txn_type_name
+          description: Name of transaction type
+        - name: txn_type_id
+          description: Id of transaction type
+        - name: end_customer_agreement_yr_ind
+          description: Year index of end customer agreement
+        - name: multi_year_flg
+          description: Flag for multi-year aggrements
+        - name: txn_units_nbr
+          description: Number of tokens transacted
+        - name: duration_mns
+          description: Duration in minutes
+        - name: duration_hrs
+          description: Duration in hours
+        - name: charged_item_id
+          description: Item id of charged product
+        - name: src_created_dt
+          description: Created date at soure
+        - name: txn_dt
+          description: Date of transaction
+        - name: txn_qty
+          description: Quantity of transaction
+        - name: reason_cd
+          description: Reason code
+        - name: reason_txt
+          description: Reason text
+        - name: adjustments_tokens_submitted
+          description: "calculates based on transaction_type__c, product_line_code__c, comments__c, and quantity__c"
+        - name: adjustments_tokens_received
+          description: "integer sum of txn_units_nbr column from tflex_usage CTE"
+        - name: adjustments_in_proof
+          description: "boolean value: if adjustments_tokens_submitted = adjustments_tokens_received"
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_usage_dd_fct_monitoring_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_USAGE_DD_FCT_MONITORING
+      description: Tflex tokens monitoring table
+      columns:
+        - name: ultimate_parent_account_name
+          description: Name of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_csn
+          description: CSN of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_eca_name
+          description: Name of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: account_name
+          description: Name of the Account (contracted entity)
+        - name: account_csn
+          description: CSN of the Account (contracted entity)
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: tflex_reporting_platform
+          description: TFLEX reporting platform (NLRS/NLRM/Flexera)
+        - name: exhibit_id
+          description: Id of the Exhibit
+        - name: exhibit_start_date
+          description: Start date of the Exhibit
+        - name: exhibit_end_date
+          description: End date of the Exhibit
+        - name: exhibit_name
+          description: Name of the Exhibit
+        - name: eba_analytics_name_key
+          description: Id key which is a combination of the Ultimate Parent ECA Name and Agreement Name for accounts that have more than one active agreements
+        - name: usage_year
+          description: Year of tokens usage
+        - name: usage_month
+          description: Month of tokens usage
+        - name: txn_type_name
+          description: Name of transaction type
+        - name: bymonth
+          description: First date of month for tokens usage
+        - name: distinct_products
+          description: Count of distinct products
+        - name: distinct_users
+          description: Count of distinct login users
+        - name: minutes
+          description: Sum of duration in minutes
+        - name: hours
+          description: Sum of duration in hours
+        - name: tokens
+          description: Sum of tokens
+        - name: multi_year_tokens
+          description: Sum of multi-year tokens
+        - name: annual_tokens
+          description: Sum of annual tokens (Non multi-year)
+        - name: tokens_consumed
+          description: Sum of tokens consumed
+        - name: tokens_adjusted
+          description: Sum of tokens adjusted
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_usage_dd_fct_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_USAGE_DD_FCT
+      description: Token master table
+      columns:
+        - name: ultimate_parent_account_id
+          description: Id of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_name
+          description: Name of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_csn
+          description: CSN of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_eca_id
+          description: Id of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_ultimate_parent_eca_id
+        - name: ultimate_parent_eca_name
+          description: Name of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_ultimate_parent_eca_name
+        - name: account_id
+          description: Id of the Account (contracted entity)
+        - name: account_name
+          description: Name of the Account (contracted entity)
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_account_name
+        - name: account_csn
+          description: CSN of the Account (contracted entity)
+        - name: parent_account_id
+          description: Id of the Parent Account in the Account Hierarchy
+        - name: parent_account_name
+          description: Name of the Parent Account in the Account Hierarchy
+        - name: parent_account_csn
+          description: CSN of the Parent Account in the Account Hierarchy
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_agreement_id
+        - name: agreement_name
+          description: Name of the End Customer Agreement
+        - name: agreement_status
+          description: Status of the End Customer Agreement
+        - name: agreement_type
+          description: Type of the End Customer Agreement
+        - name: exhibit_id
+          description: Id of the Exhibit
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_exhibit_id
+        - name: exhibit_name
+          description: Name of the Exhibit
+        - name: exhibit_active_status
+          description: Status of the Exhibit
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_exhibit_active_status
+        - name: exhibit_start_date
+          description: Start date of the Exhibit
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_exhibit_start_date
+            - validate_date_format:
+                name: usage_tflex_tflex_usage_dd_fct_validate_date_format_exhibit_start_date
+        - name: exhibit_end_date
+          description: End date of the Exhibit
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_exhibit_end_date
+            - validate_date_format:
+                name: usage_tflex_tflex_usage_dd_fct_validate_date_format_exhibit_end_date
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: tflex_reporting_platform
+          description: TFLEX reporting platform (NLRS/NLRM/Flexera)
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_ultimate_tflex_reporting_platform
+            - accepted_values:
+                name: usage_tflex_tflex_usage_dd_fct_accepted_values_ultimate_tflex_reporting_platform
+                values:
+                  - NLRS
+                  - NLRM
+                  - Flexera
+        - name: agreement_number
+          description: Agreement number
+        - name: eba_analytics_id_key
+          description: Id key which is a combination of the Ultimate Parent ECA ID and Agreement ID for accounts that have more than one active agreements
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_eba_analytics_id_key
+        - name: eba_analytics_name_key
+          description: Id key which is a combination of the Ultimate Parent ECA Name and Agreement Name for accounts that have more than one active agreements
+          tests:
+            - not_null:
+                name: usage_tflex_tflex_usage_dd_fct_not_null_eba_analytics_name_key
+        - name: user_login_id
+          description: Login Id of user
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: machine_name
+          description: Name of machine
+        - name: license_server_name
+          description: Name of licensed server
+        - name: usage_dt
+          description: Date of usage
+        - name: usage_date_key
+          description: Date of usage in key - YYYYMMDD
+        - name: product_line_cd
+          description: Product line code
+        - name: product_line_name
+          description: Product line name
+        - name: product_feature_id
+          description: Feature Id of product
+        - name: product_feature_cd
+          description: Feature code of product
+        - name: product_release_cd
+          description: Release code of product
+        - name: service_mktg_name
+          description: Name of service marketing
+        - name: product_name
+          description: Name of product
+        - name: product_version
+          description: Version of product
+        - name: service_category_name
+          description: Name of service category
+        - name: txn_type_name
+          description: Name of transaction type
+        - name: txn_type_id
+          description: Id of transaction type
+        - name: end_customer_agreement_yr_ind
+          description: Year index of end customer agreement
+        - name: multi_year_flg
+          description: Flag for multi-year aggrements
+        - name: txn_units_nbr
+          description: Number of tokens transacted
+        - name: duration_mns
+          description: Duration in minutes
+        - name: duration_hrs
+          description: Duration in hours
+        - name: charged_item_id
+          description: Item id of charged product
+        - name: src_created_dt
+          description: Created date at soure
+        - name: txn_dt
+          description: Date of transaction
+        - name: txn_qty
+          description: Quantity of transaction
+        - name: reason_cd
+          description: Reason code
+        - name: reason_txt
+          description: Reason text
+        - name: adjustments_tokens_submitted
+          description: "calculates based on transaction_type__c, product_line_code__c, comments__c, and quantity__c"
+        - name: adjustments_tokens_received
+          description: "integer sum of txn_units_nbr column from tflex_usage CTE"
+        - name: adjustments_in_proof
+          description: "boolean value: if adjustments_tokens_submitted = adjustments_tokens_received"
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_user_enrichment_dim_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_USER_ENRICHMENT_DIM
+      description: Token-flex user enrichment data table
+      tests: 
+        - unique:
+            name: usage_tflex_tflex_user_enrichment_dim_unique_agreement_id_user_login_id
+            column_name: "(agreement_id || '_' || user_login_id)"
+        - not_null:
+            name: usage_tflex_tflex_user_enrichment_dim_not_null_agreement_id_user_login_id
+            column_name: "(agreement_id || '_' || user_login_id)"
+      columns:
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: user_login_id
+          description: >
+            The User Login ID - login for desktop products, 
+            email for cloud products and services, 
+            NULL for manual adjustments and manual consumption.
+            Values are hashed
+        - name: custom_field_01
+          description: Custom text field 1
+        - name: custom_field_02
+          description: Custom text field 2
+        - name: custom_field_03
+          description: Custom text field 3
+        - name: custom_field_04
+          description: Custom text field 4
+        - name: custom_field_05
+          description: Custom text field 5
+        - name: custom_field_06
+          description: Custom text field 6
+        - name: custom_field_07
+          description: Custom text field 7
+        - name: custom_field_08
+          description: Custom text field 8
+        - name: custom_field_09
+          description: Custom text field 9
+        - name: custom_field_10
+          description: Custom text field 10
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_user_enrichment_label_ref_transform # EIO_INGEST.USAGE_TRANSFORM.TFLEX_USER_ENRICHMENT_LABEL_REF
+      description: Token-flex user enrichment label reference table
+      columns:
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+          tests:
+            - unique:
+               name: usage_tflex_tflex_user_enrichment_label_ref_unique_agreement_id
+            - not_null: 
+               name: usage_tflex_tflex_user_enrichment_label_ref_not_null_agreement_id
+        - name: field_1_lbl
+          description: The label of field 1
+        - name: field_2_lbl
+          description: The label of field 2
+        - name: field_3_lbl
+          description: The label of field 3
+        - name: field_4_lbl
+          description: The label of field 4
+        - name: field_5_lbl
+          description: The label of field 5
+        - name: field_6_lbl
+          description: The label of field 6
+        - name: field_7_lbl
+          description: The label of field 7
+        - name: field_8_lbl
+          description: The label of field 8
+        - name: field_9_lbl
+          description: The label of field 9
+        - name: field_10_lbl
+          description: The label of field 10
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    # Publish Layer >> Private
+    - name: tflex_adjustment_recon_fct_private # EIO_INGEST.USAGE_PRIVATE.TFLEX_ADJUSTMENT_RECON_FCT
+      description: "Adjustment Reconciliation Table for Tflex Usage"
+      columns:
+        - name: agreement_number
+          description: "agreement number from SFDC table 'servicecontract'"
+        - name: account_name
+          description: "account name from SFDC table 'agreement_transaction__c'"
+        - name: adjustment_consumption_months
+          description: "adjustment consumption date truncated to monthly from SFDC table 'agreement_transaction__c'"
+        - name: adjustments_submitted
+          description: "count of agreement_number"
+        - name: adjustments_tokens_submitted
+          description: "calculates based on transaction_type__c, product_line_code__c, comments__c, and quantity__c"
+        - name: adjustments_received
+          description: "count of agreement_number column from tflex_usage CTE"
+        - name: adjustments_tokens_received
+          description: "integer sum of txn_units_nbr column from tflex_usage CTE"
+        - name: equal
+          description: "boolean value: if adjustments_submitted = adjustments_received"
+        - name: adjustments_in_proof
+          description: "boolean value: if adjustments_tokens_submitted = adjustments_tokens_received"
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_product_list_private # EIO_INGEST.USAGE_PRIVATE.TFLEX_PRODUCT_LIST
+      description: "Tflex products list updated once a year"
+      columns:
+        - name: product_family
+          description: Family of product
+        - name: product_code
+          description: Code of product
+        - name: product_type
+          description: Type of product
+        - name: bim_nps_category
+          description: BIM Net promoter score category
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_usage_dd_fct_private # EIO_INGEST.USAGE_PRIVATE.TFLEX_USAGE_DD_FCT
+      description: Token master table
+      columns:
+        - name: ultimate_parent_account_id
+          description: Id of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_name
+          description: Name of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_csn
+          description: CSN of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_eca_id
+          description: Id of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: ultimate_parent_eca_name
+          description: Name of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: account_id
+          description: Id of the Account (contracted entity)
+        - name: account_name
+          description: Name of the Account (contracted entity)
+        - name: account_csn
+          description: CSN of the Account (contracted entity)
+        - name: parent_account_id
+          description: Id of the Parent Account in the Account Hierarchy
+        - name: parent_account_name
+          description: Name of the Parent Account in the Account Hierarchy
+        - name: parent_account_csn
+          description: CSN of the Parent Account in the Account Hierarchy
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: agreement_name
+          description: Name of the End Customer Agreement
+        - name: agreement_status
+          description: Status of the End Customer Agreement
+        - name: agreement_type
+          description: Type of the End Customer Agreement
+        - name: exhibit_id
+          description: Id of the Exhibit
+        - name: exhibit_name
+          description: Name of the Exhibit
+        - name: exhibit_active_status
+          description: Status of the Exhibit
+        - name: exhibit_start_date
+          description: Start date of the Exhibit
+        - name: exhibit_end_date
+          description: End date of the Exhibit
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: tflex_reporting_platform
+          description: TFLEX reporting platform (NLRS/NLRM/Flexera)
+        - name: agreement_number
+          description: Agreement number
+        - name: eba_analytics_id_key
+          description: Id key which is a combination of the Ultimate Parent ECA ID and Agreement ID for accounts that have more than one active agreements
+        - name: eba_analytics_name_key
+          description: Id key which is a combination of the Ultimate Parent ECA Name and Agreement Name for accounts that have more than one active agreements
+        - name: user_login_id
+          description: Login Id of user
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: machine_name
+          description: Name of machine
+        - name: license_server_name
+          description: Name of licensed server
+        - name: usage_dt
+          description: Date of usage
+        - name: usage_date_key
+          description: Date of usage in key - YYYYMMDD
+        - name: product_line_cd
+          description: Product line code
+        - name: product_line_name
+          description: Product line name
+        - name: product_feature_id
+          description: Feature Id of product
+        - name: product_feature_cd
+          description: Feature code of product
+        - name: product_release_cd
+          description: Release code of product
+        - name: service_mktg_name
+          description: Name of service marketing
+        - name: product_name
+          description: Name of product
+        - name: product_version
+          description: Version of product
+        - name: service_category_name
+          description: Name of service category
+        - name: txn_type_name
+          description: Name of transaction type
+        - name: txn_type_id
+          description: Id of transaction type
+        - name: end_customer_agreement_yr_ind
+          description: Year index of end customer agreement
+        - name: multi_year_flg
+          description: Flag for multi-year aggrements
+        - name: txn_units_nbr
+          description: Number of tokens transacted
+        - name: duration_mns
+          description: Duration in minutes
+        - name: duration_hrs
+          description: Duration in hours
+        - name: charged_item_id
+          description: Item id of charged product
+        - name: src_created_dt
+          description: Created date at soure
+        - name: txn_dt
+          description: Date of transaction
+        - name: txn_qty
+          description: Quantity of transaction
+        - name: reason_cd
+          description: Reason code
+        - name: reason_txt
+          description: Reason text
+        - name: adjustments_tokens_submitted
+          description: "calculates based on transaction_type__c, product_line_code__c, comments__c, and quantity__c"
+        - name: adjustments_tokens_received
+          description: "integer sum of txn_units_nbr column from tflex_usage CTE"
+        - name: adjustments_in_proof
+          description: "boolean value: if adjustments_tokens_submitted = adjustments_tokens_received"
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_user_enrichment_dim_private # EIO_INGEST.USAGE_PRIVATE.TFLEX_USER_ENRICHMENT_DIM
+      description: Token-flex user enrichment data table
+      columns:
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: user_login_id
+          description: >
+            The User Login ID - login for desktop products, 
+            email for cloud products and services, 
+            NULL for manual adjustments and manual consumption.
+            Values are hashed
+        - name: custom_field_01
+          description: Custom text field 1
+        - name: custom_field_02
+          description: Custom text field 2
+        - name: custom_field_03
+          description: Custom text field 3
+        - name: custom_field_04
+          description: Custom text field 4
+        - name: custom_field_05
+          description: Custom text field 5
+        - name: custom_field_06
+          description: Custom text field 6
+        - name: custom_field_07
+          description: Custom text field 7
+        - name: custom_field_08
+          description: Custom text field 8
+        - name: custom_field_09
+          description: Custom text field 9
+        - name: custom_field_10
+          description: Custom text field 10
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_user_enrichment_label_ref_private # EIO_INGEST.USAGE_PRIVATE.TFLEX_USER_ENRICHMENT_LABEL_REF
+      description: Token-flex user enrichment label reference table
+      columns:
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: field_1_lbl
+          description: The label of field 1
+        - name: field_2_lbl
+          description: The label of field 2
+        - name: field_3_lbl
+          description: The label of field 3
+        - name: field_4_lbl
+          description: The label of field 4
+        - name: field_5_lbl
+          description: The label of field 5
+        - name: field_6_lbl
+          description: The label of field 6
+        - name: field_7_lbl
+          description: The label of field 7
+        - name: field_8_lbl
+          description: The label of field 8
+        - name: field_9_lbl
+          description: The label of field 9
+        - name: field_10_lbl
+          description: The label of field 10
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    # Publish Layer >> Shared
+    - name: tflex_adjustment_recon_fct_shared # EIO_INGEST.USAGE_SHARED.TFLEX_ADJUSTMENT_RECON_FCT
+      description: "Adjustment Reconciliation Table for Tflex Usage"
+      columns:
+        - name: agreement_number
+          description: "agreement number from SFDC table 'servicecontract'"
+        - name: account_name
+          description: "account name from SFDC table 'agreement_transaction__c'"
+        - name: adjustment_consumption_months
+          description: "adjustment consumption date truncated to monthly from SFDC table 'agreement_transaction__c'"
+        - name: adjustments_submitted
+          description: "count of agreement_number"
+        - name: adjustments_tokens_submitted
+          description: "calculates based on transaction_type__c, product_line_code__c, comments__c, and quantity__c"
+        - name: adjustments_received
+          description: "count of agreement_number column from tflex_usage CTE"
+        - name: adjustments_tokens_received
+          description: "integer sum of txn_units_nbr column from tflex_usage CTE"
+        - name: equal
+          description: "boolean value: if adjustments_submitted = adjustments_received"
+        - name: adjustments_in_proof
+          description: "boolean value: if adjustments_tokens_submitted = adjustments_tokens_received"
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_product_list_shared # EIO_INGEST.USAGE_SHARED.TFLEX_PRODUCT_LIST
+      description: "Tflex products list updated once a year"
+      columns:
+        - name: product_family
+          description: Family of product
+        - name: product_code
+          description: Code of product
+        - name: product_type
+          description: Type of product
+        - name: bim_nps_category
+          description: BIM Net promoter score category
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_usage_dd_fct_shared # EIO_INGEST.USAGE_SHARED.TFLEX_USAGE_DD_FCT
+      description: Token master table
+      columns:
+        - name: ultimate_parent_account_id
+          description: Id of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_name
+          description: Name of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_account_csn
+          description: CSN of the Ultimate Parent Account (Umbrella Account)
+        - name: ultimate_parent_eca_id
+          description: Id of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: ultimate_parent_eca_name
+          description: Name of the Ultimate Parent End Customer Agreement (Umbrella Agreement)
+        - name: account_id
+          description: Id of the Account (contracted entity)
+        - name: account_name
+          description: Name of the Account (contracted entity)
+        - name: account_csn
+          description: CSN of the Account (contracted entity)
+        - name: parent_account_id
+          description: Id of the Parent Account in the Account Hierarchy
+        - name: parent_account_name
+          description: Name of the Parent Account in the Account Hierarchy
+        - name: parent_account_csn
+          description: CSN of the Parent Account in the Account Hierarchy
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: agreement_name
+          description: Name of the End Customer Agreement
+        - name: agreement_status
+          description: Status of the End Customer Agreement
+        - name: agreement_type
+          description: Type of the End Customer Agreement
+        - name: exhibit_id
+          description: Id of the Exhibit
+        - name: exhibit_name
+          description: Name of the Exhibit
+        - name: exhibit_active_status
+          description: Status of the Exhibit
+        - name: exhibit_start_date
+          description: Start date of the Exhibit
+        - name: exhibit_end_date
+          description: End date of the Exhibit
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: tflex_reporting_platform
+          description: TFLEX reporting platform (NLRS/NLRM/Flexera)
+        - name: agreement_number
+          description: Agreement number
+        - name: eba_analytics_id_key
+          description: Id key which is a combination of the Ultimate Parent ECA ID and Agreement ID for accounts that have more than one active agreements
+        - name: eba_analytics_name_key
+          description: Id key which is a combination of the Ultimate Parent ECA Name and Agreement Name for accounts that have more than one active agreements
+        - name: user_login_id
+          description: Login Id of user
+        - name: exhibit_type
+          description: Type of the Exhibit
+        - name: machine_name
+          description: Name of machine
+        - name: license_server_name
+          description: Name of licensed server
+        - name: usage_dt
+          description: Date of usage
+        - name: usage_date_key
+          description: Date of usage in key - YYYYMMDD
+        - name: product_line_cd
+          description: Product line code
+        - name: product_line_name
+          description: Product line name
+        - name: product_feature_id
+          description: Feature Id of product
+        - name: product_feature_cd
+          description: Feature code of product
+        - name: product_release_cd
+          description: Release code of product
+        - name: service_mktg_name
+          description: Name of service marketing
+        - name: product_name
+          description: Name of product
+        - name: product_version
+          description: Version of product
+        - name: service_category_name
+          description: Name of service category
+        - name: txn_type_name
+          description: Name of transaction type
+        - name: txn_type_id
+          description: Id of transaction type
+        - name: end_customer_agreement_yr_ind
+          description: Year index of end customer agreement
+        - name: multi_year_flg
+          description: Flag for multi-year aggrements
+        - name: txn_units_nbr
+          description: Number of tokens transacted
+        - name: duration_mns
+          description: Duration in minutes
+        - name: duration_hrs
+          description: Duration in hours
+        - name: charged_item_id
+          description: Item id of charged product
+        - name: src_created_dt
+          description: Created date at soure
+        - name: txn_dt
+          description: Date of transaction
+        - name: txn_qty
+          description: Quantity of transaction
+        - name: reason_cd
+          description: Reason code
+        - name: reason_txt
+          description: Reason text
+        - name: adjustments_tokens_submitted
+          description: "calculates based on transaction_type__c, product_line_code__c, comments__c, and quantity__c"
+        - name: adjustments_tokens_received
+          description: "integer sum of txn_units_nbr column from tflex_usage CTE"
+        - name: adjustments_in_proof
+          description: "boolean value: if adjustments_tokens_submitted = adjustments_tokens_received"
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_user_enrichment_dim_shared # EIO_INGEST.USAGE_SHARED.TFLEX_USER_ENRICHMENT_DIM
+      description: Token-flex user enrichment data table
+      columns:
+        - name: agreement_id
+          description: Id of the End Customer Agreement
+        - name: user_login_id
+          description: >
+            The User Login ID - login for desktop products, 
+            email for cloud products and services, 
+            NULL for manual adjustments and manual consumption.
+            Values are hashed
+        - name: custom_field_01
+          description: Custom text field 1
+        - name: custom_field_02
+          description: Custom text field 2
+        - name: custom_field_03
+          description: Custom text field 3
+        - name: custom_field_04
+          description: Custom text field 4
+        - name: custom_field_05
+          description: Custom text field 5
+        - name: custom_field_06
+          description: Custom text field 6
+        - name: custom_field_07
+          description: Custom text field 7
+        - name: custom_field_08
+          description: Custom text field 8
+        - name: custom_field_09
+          description: Custom text field 9
+        - name: custom_field_10
+          description: Custom text field 10
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  
+    - name: tflex_user_enrichment_label_ref_shared # EIO_INGEST.USAGE_SHARED.TFLEX_USER_ENRICHMENT_LABEL_REF
+      description: Token-flex user enrichment label reference table
+      columns:
+        - name: end_customer_agreement_id
+          description: Id of the End Customer Agreement
+        - name: field_1_lbl
+          description: The label of field 1
+        - name: field_2_lbl
+          description: The label of field 2
+        - name: field_3_lbl
+          description: The label of field 3
+        - name: field_4_lbl
+          description: The label of field 4
+        - name: field_5_lbl
+          description: The label of field 5
+        - name: field_6_lbl
+          description: The label of field 6
+        - name: field_7_lbl
+          description: The label of field 7
+        - name: field_8_lbl
+          description: The label of field 8
+        - name: field_9_lbl
+          description: The label of field 9
+        - name: field_10_lbl
+          description: The label of field 10
+        - name: insert_dt
+          description: Current date when the data is inserted
+        - name: update_dt
+          description: Date when the data is last updated
+  

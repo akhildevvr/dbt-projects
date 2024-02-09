@@ -1,0 +1,7 @@
+setup.py
+shared_python_packages.egg-info/PKG-INFO
+shared_python_packages.egg-info/SOURCES.txt
+shared_python_packages.egg-info/dependency_links.txt
+shared_python_packages.egg-info/top_level.txt
+utilities/__init__.py
+utilities/helpers.py

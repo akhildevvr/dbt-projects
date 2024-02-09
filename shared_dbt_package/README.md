@@ -1,0 +1,175 @@
+Welcome to your new dbt project!
+
+### Using the starter project
+
+Try running the following commands:
+- dbt run
+- dbt test
+
+
+### Resources:
+- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
+- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
+- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
+- Find [dbt events](https://events.getdbt.com) near you
+- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+
+
+|Column Name|Defintion|
+|:----|:----|
+|DT| Timestamp value- to check for data freshness|
+|PROJECT_ID| Unique ID of the projects |
+|PARENT_ID| ID of the parent projects - Used to identify the parent projects for the child projects|
+|ADSK_GEO_NAME| GEO value of the projects|
+|PORTFOLIO_NAME| Portfolio of the projects |
+|PROJECT_CODE| Unique code for the projects|
+|PROJECT_NAME| Name of the projects|
+|PROJECT_MANAGER_NAME| Project Manager for the respective projects|
+|PROJECT_STATE| Status of the projects - Closed, Active, Funnel etc|
+|PROJECT_END_DATE| End date of the Projects|
+|ADSK_SAP_PROJECT_ID| SAP ID for the projects |
+|CLIENT_NAME| Client or the Account name to which the project corressponds to.|
+|ADSK_MASTERAGREEMENT_PROJECTTYPE| Project Type of the projects - IS Parent ,AS Parent ,PAC Parent ,PAC Child (SCO) ,DSP Parent 
+Cash  |
+|ADSK_REVREC_TREATMENT| |
+|ADSK_ACCOUNTING_CONTRACT_TYPE| |
+|CLIENT_CURRENCY| The project currency |
+|CLIENT_RATE| Rate of the project currency |
+|BASE_RATE| Conversion rate towards USD|
+|HOURLY_RATE_CONTRACTCURRENCY| Hourly rate for the project in local currency|
+|HOURLY_RATE_USD| Hourly rate in USD|
+|BUD_REVENUE| Budget Revenue of the projects|
+|REVLABOR_PASTQTRS| Labor revenue for Previous Quarter|
+|REVLABOR_CURRENTQTR| Labor revenu for current quarter|
+|REV_DEFERRED| Deffered Revenue for the currente quarter|
+|REVLABOR_REMAINING_IN_QTR| Total Labor revenue remaining in current quarter|
+|REVLABOR_REMAINING_IN_QTR_HARD| Hard booked labor revenue remaining in current quarter|
+|REVLABOR_PLUS1QTR| Total Labor revenue in next quarter |
+|REVLABOR_PLUS2QTR| Total Labor revenue in next quarter + 1|
+|REVLABOR_PLUS3QTR| Total Labor revenue in next quarter + 2|
+|REVLABOR_PLUS4QTR| Total Labor revenue in next quarter + 3|
+|REVLABOR_PLUS5QTR| Total Labor revenue in next quarter + 4|
+|REVLABOR_ADDITIONALQTRS| Total Labor revenue in additional quarter |
+|REVLABOR_ADDITIONALQTRS2| Total Labor revenue in additional quarter +1|
+|HARD_BOOKED_HRS_CURRENTQTR| Hard booked Hours for current quarter|
+|SOFT_BOOKED_HRS_CURRENTQTR| Soft booked Hours for current quarter|
+|HARD_BOOKED_HRS_PLUS1QTR| Hard booked Hours for next quarter|
+|SOFT_BOOKED_HRS_PLUS1QTR| Soft booked Hours for next quarter|
+|HARD_BOOKED_HRS_PLUS2QTR| Hard booked Hours for next quarter + 1 |
+|SOFT_BOOKED_HRS_PLUS2QTR| Soft booked Hours for next quarter + 1 |
+|HARD_BOOKED_HRS_PLUS3QTR| Hard booked Hours for next quarter + 2|
+|SOFT_BOOKED_HRS_PLUS3QTR| Soft booked Hours for next quarter + 2|
+|HARD_BOOKED_HRS_PLUS4QTR| Hard booked Hours for next quarter + 3|
+|SOFT_BOOKED_HRS_PLUS4QTR| Soft booked Hours for next quarter + 3|
+|HARD_BOOKED_HRS_PLUS5QTR| Hard booked Hours for next quarter + 4|
+|SOFT_BOOKED_HRS_PLUS5QTR| Soft booked Hours for next quarter + 4|
+|HARD_BOOKED_HRS_ADDITIONALQTRS| Hard booked Hours for additional quarters|
+|SOFT_BOOKED_HRS_ADDITIONALQTRS| Soft booked Hours for additional quarters|
+|HARD_BOOKED_HRS_ADDITIONALQTRS2| Hard booked Hours for additional quarters + 1|
+|SOFT_BOOKED_HRS_ADDITIONALQTRS2| `soft` booked Hours for additional quarters + 1|
+|RECREV_COMPLETEDINQTR| |
+|RECREV_PASTQTRS| |
+|FCSTCHRGREV_ALLBILLABLE_FUTUREQTRS| |
+|FCSTCHRGREV_ALLBILLABLE_REMAINING_IN_QTR| |
+|FCSTCHRGREV_ALLBILLABLE_PLUS1QTR| |
+|FCSTCHRGREV_ALLBILLABLE_PLUS2QTR| |
+|FCSTCHRGREV_ALLBILLABLE_PLUS3QTR| |
+|FCSTCHRGREV_ALLBILLABLE_PLUS4QTR| |
+|FCSTCHRGREV_ALLBILLABLE_PLUS5QTR| |
+|FCSTCHRGREV_ALLBILLABLE_ADDITIONALQTRS| |
+|FCSTCHRGREV_ALLBILLABLE_ADDITIONALQTRS2| |
+|TOTAL_PLANNED_REV_USD_ADSK| |
+|CURRENT_BILLABLE_CHARGE| |
+|CURRENT_BILLABLE_TIME| |
+|CURRENT_BILLABLE_CHARGE_RATABLE_BILLING| |
+|ACTUAL_EXPENSES_PASTQTR| |
+|ESTIMATED_EXPENSES_CURRENTQTR| |
+|ESTIMATED_EXPENSES_PLUS1QTR| |
+|ESTIMATED_EXPENSES_PLUS2QTR| |
+|ESTIMATED_EXPENSES_PLUS3QTR| |
+|ESTIMATED_EXPENSES_PLUS4QTR| |
+|ESTIMATED_EXPENSES_PLUS5QTR| |
+|ESTIMATED_EXPENSES_ADDITIONALQTRS| |
+|ESTIMATED_EXPENSES_ADDITIONAL2QTRS| |
+|TOTAL_EXPENSES| |
+|HRSACT_PAST| |
+|HRSACT_PASTQTRS| |
+|HRSACT_CURRENTQTRM1| |
+|HRSACT_CURRENTQTRM2| |
+|HRSACT_CURRENTQTRM3| |
+|HRSACT_CURRENTQTR| |
+|HRSACT_COMPLETEDINQTR| |
+|HRSFCST_BILLABLE_CURRENTQTRM1| |
+|HRSFCST_BILLABLE_CURRENTQTRM2| |
+|HRSFCST_BILLABLE_CURRENTQTRM3| |
+|HRSFCST_BILLABLE_REMAININGINQTR| |
+|HRSFCST_BILLABLE_REMAININGINQTR_SOFT| |
+|HRSFCST_BILLABLE_PLUS1QTR| |
+|HRSFCST_BILLABLE_PLUS2QTR| |
+|HRSFCST_BILLABLE_PLUS3QTR| |
+|HRSFCST_BILLABLE_PLUS4QTR| |
+|HRSFCST_BILLABLE_PLUS5QTR| |
+|HRSFCST_BILLABLE_ADDITIONALQTRS| |
+|HRSFCST_BILLABLE_ADDITIONALQTRS2| |
+|HRSFCST_BILLABLE_FUTURE| |
+|HRS_BILLABLE_EAC| |
+|HRSACT_PAST_ORG| |
+|HRSACT_PASTQTRS_ORG| |
+|HRSACT_CURRENTQTRM1_ORG| |
+|HRSACT_CURRENTQTRM2_ORG| |
+|HRSACT_CURRENTQTRM3_ORG| |
+|HRSFCST_BILLABLE_CURRENTQTRM1_ORG| |
+|HRSFCST_BILLABLE_CURRENTQTRM2_ORG| |
+|HRSFCST_BILLABLE_CURRENTQTRM3_ORG| |
+|HRSFCST_BILLABLE_PLUS1QTR_ORG| |
+|HRSFCST_BILLABLE_PLUS2QTR_ORG| |
+|HRSFCST_BILLABLE_PLUS3QTR_ORG| |
+|HRSFCST_BILLABLE_PLUS4QTR_ORG| |
+|HRSFCST_BILLABLE_PLUS5QTR_ORG| |
+|HRSFCST_BILLABLE_ADDITIONALQTRS_ORG| |
+|HRSFCST_BILLABLE_ADDITIONALQTRS2_ORG| |
+|HRS_BILLABLE_EAC_ORG| |
+|BILLABLE_HOURS_CURRENTQTR| |
+|BILLABLE_HOURS_PLUS1QTR| |
+|BILLABLE_HOURS_PLUS2QTR| |
+|BILLABLE_HOURS_PLUS3QTR| |
+|BILLABLE_HOURS_PLUS4QTR| |
+|BILLABLE_HOURS_PLUS5QTR| |
+|BILLABLE_HOURS_ADDITIONALQTR| |
+|BILLABLE_HOURS_ADDITIONAL2QTR| |
+|PERCENT_COMPLETE_PREVQTR| |
+|PERCENT_COMPLETE_CURRENTQTR| |
+|PERCENT_COMPLETE_PLUS1QTR| |
+|PERCENT_COMPLETE_PLUS2QTR| |
+|PERCENT_COMPLETE_PLUS3QTR| |
+|PERCENT_COMPLETE_PLUS4QTR| |
+|PERCENT_COMPLETE_PLUS5QTR| |
+|PERCENT_COMPLETE_ADDITIONALQTR| |
+|PERCENT_COMPLETE_ADDITIONAL2QTR| |
+|TOTAL_REVENUE_PREVQTR| |
+|TOTAL_REVENUE_CURRENTQTR| |
+|HARD_BOOKED_REV_CURRENTQTR| |
+|SOFT_BOOKED_REV_CURRENTQTR| |
+|TOTAL_REVENUE_PLUS1QTR| |
+|HARD_BOOKED_REV_PLUS1QTR| |
+|SOFT_BOOKED_REV_PLUS1QTR| |
+|TOTAL_REVENUE_PLUS2QTR| |
+|HARD_BOOKED_REV_PLUS2QTR| |
+|SOFT_BOOKED_REV_PLUS2QTR| |
+|TOTAL_REVENUE_PLUS3QTR| |
+|HARD_BOOKED_REV_PLUS3QTR| |
+|SOFT_BOOKED_REV_PLUS3QTR| |
+|TOTAL_REVENUE_PLUS4QTR| |
+|HARD_BOOKED_REV_PLUS4QTR| |
+|SOFT_BOOKED_REV_PLUS4QTR| |
+|TOTAL_REVENUE_PLUS5QTR| |
+|HARD_BOOKED_REV_PLUS5QTR| |
+|SOFT_BOOKED_REV_PLUS5QTR| |
+|TOTAL_REVENUE_ADDITIONALQTR| |
+|HARD_BOOKED_REV_ADDITIONALQTRS| |
+|SOFT_BOOKED_REV_ADDITIONALQTRS| |
+|TOTAL_REVENUE_ADDITIONAL2QTR| |
+|HARD_BOOKED_REV_ADDITIONALQTRS2| |
+|SOFT_BOOKED_REV_ADDITIONALQTRS2| |
+|TOTAL_REVENUE_FUTUREQTRS| |
+|PARENT_CHILD_KEY| |
