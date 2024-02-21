@@ -17,6 +17,6 @@ spec:
   type: service
   lifecycle: production
   #type: eax-common-library
-  owner: user: akhil.ravindran
+  owner: user:akhil.ravindran
   hasPart:
     - component: shared_dbt_package
